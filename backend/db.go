@@ -7,7 +7,7 @@ import (
 
 const (
 	host     = "localhost"
-	port     = 5400
+	port     =  5400
 	user     = "postgres"
 	password = "docker"
 	dbname   = "postgres"

@@ -14,8 +14,6 @@ func main() {
 	router := gin.Default()
 	AuthRoutes(router)
 	UserRoutes(router)
-
-	router.GET("/users", getUsers)
 	router.Run("localhost:8080")
 	defer db.Close()
 }
