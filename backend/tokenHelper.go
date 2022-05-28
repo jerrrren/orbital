@@ -11,7 +11,7 @@ import (
 )
 
 type SignedDetails struct {
-	Name     string `json:"name"`
+	Name     string `json:"username"`
 	User_type string `json:"user_type" validate:"required, eq=ADMIN|eq=USER"`
 	jwt.StandardClaims	
 }

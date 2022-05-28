@@ -29,7 +29,7 @@ func Signup() gin.HandlerFunc {
 		user.Token = token
 		user.Refresh_token = refreshToken
 
-		result, err := db.Exec("INSERT INTO users (name,password,refresh_token,token,user_type) VALUES ($1, $2, $3,$4,$5)",user.Name,user.Password,user.Refresh_token,user.Token,user.User_type)
+		result, err := db.Exec("INSERT INTO users (name,password,refresh_token,token,user_type) VALUES ($1, $2, $3,$4,$5)", user.Name ,user.Password,user.Refresh_token,user.Token,user.User_type)
 
 		if err != nil {
 			fmt.Printf("test")
@@ -49,15 +49,15 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		row := db.QueryRow("SELECT * FROM users WHERE (Name = $1 AND Password = $2)", user.Name, user.Password)
+		row := db.QueryRow("SELECT * FROM users WHERE (name = $1 AND password = $2)", user.Name, user.Password)
 
 		if err := row.Scan(&foundUser.ID, &foundUser.Name, &foundUser.Password,&foundUser.Token ,&foundUser.Refresh_token, &foundUser.User_type); err != nil {
 			if err == sql.ErrNoRows {
-				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect"})
+				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect error " + user.Name+user.Password})
 				return
 			}
 
-			c.IndentedJSON(http.StatusNotFound, gin.H{"message": err})
+			c.IndentedJSON(http.StatusNotFound, gin.H{"message": err.Error()})
 			return
 		}
 
@@ -69,11 +69,11 @@ func Login() gin.HandlerFunc {
 		
 		UpdateAllTokens(token, refreshToken, foundUser.ID)
 
-		newrow := db.QueryRow("SELECT * FROM users WHERE (Name = $1 AND Password = $2)", user.Name, user.Password)
+		newrow := db.QueryRow("SELECT * FROM users WHERE (name = $1 AND password = $2)", user.Name, user.Password)
 
 		if err := newrow.Scan(&foundUser.ID, &foundUser.Name, &foundUser.Password,&foundUser.Token ,&foundUser.Refresh_token, &foundUser.User_type); err != nil {
 			if err == sql.ErrNoRows {
-				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect"})
+				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect error2"})
 				return
 			}
 			c.IndentedJSON(http.StatusNotFound, gin.H{"message": err.Error()})

@@ -8,7 +8,7 @@ export const REFRESH_TOKEN_ENDPOINT = '/token/refresh'
 const TOKEN_EXPIRED_CODE = 'token_not_valid'
 const NO_AUTHENTICATION_CODE = 'Authentication credentials were not provided.'
 
-const API_URL = 'http://127.0.0.1:8000/api'
+const API_URL = 'http://localhost:8080/users'
 
 // Create an Axios instance with custom config
 const request = axios.create({

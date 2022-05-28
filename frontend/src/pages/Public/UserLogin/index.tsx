@@ -1,4 +1,5 @@
 import { Formik, Form, Field, FormikHelpers } from 'formik'
+import { Button } from '@chakra-ui/react'
 import * as yup from 'yup'
 
 import { Link } from 'react-router-dom'
@@ -44,17 +45,17 @@ const UserLogin = () => {
       <Formik initialValues={initialValues} onSubmit={handleLogin} validationSchema={validationSchema}>
         <Form>
           <label htmlFor="username">UserName</label>
-          <Input id="username" name="username" placeholder="UserName" />
+          <Input id="username" name="username" placeholder="Username" />
           <label htmlFor="password">Password</label>
           <Input id="password" name="password" placeholder="Password" />
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </Form>
       </Formik>
       <Link to={Routes.signup}>
-        <button>SignUp</button>
+        <Button>SignUp</Button>
       </Link>
       <Link to={Routes.forget}>
-        <button>Forgotten Password?</button>
+        <Button>Forgotten Password?</Button>
       </Link>
     </div>
   )

@@ -2,7 +2,7 @@ package main
 
 type User struct {
 	ID            uint   `json:"uid"`
-	Name          string `json:"name"`
+	Name          string `json:"username"`
 	Password      string `json:"password"`
 	User_type     string `json:"user_type" validate:"required, eq=ADMIN|eq=USER"`
 	Refresh_token string `json:"refresh_token"`
