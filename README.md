@@ -14,3 +14,11 @@ go run main.go
 ```
 
 Then the backend should be ready.
+
+To run the frontend, ensure that you are in the frontend directory and run the following
+
+ ```
+ npm start
+ ```
+
+Then you are ready to use IntroNus
