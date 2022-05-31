@@ -12,8 +12,9 @@ var db *sql.DB
 func main() {
 	db = setupDatabase()
 	router := gin.Default()
+	router.Use(CORSMiddleware())
 	AuthRoutes(router)
 	UserRoutes(router)
-	router.Run("localhost:8080")
+	router.Run()
 	defer db.Close()
 }
