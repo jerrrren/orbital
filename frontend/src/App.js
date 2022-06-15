@@ -6,11 +6,14 @@ import LandingPage from './components/ladingpage/landingpage'
 import Register from "./components/registration/register"
 import LoggedInHome from './components/loggedin/home/home';
 import FriendPage from './components/loggedin/friendPage/friendPage';
+import ChatPage from './components/loggedin/chatPage/chatPage'
+
+import { ChakraProvider } from '@chakra-ui/react'
 
 function App() {
 
   return (
-    <div>
+    <ChakraProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
@@ -19,9 +22,11 @@ function App() {
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<Register />} />
           <Route path="/logout" exact element={<Logout />} />
+          <Route path="/chat/:id" exact element={<ChatPage/>}></Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </ChakraProvider>
+    
   );
 }
 
