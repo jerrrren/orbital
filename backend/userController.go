@@ -2,13 +2,11 @@ package main
 
 import (
 	"database/sql"
-	"net/http"
 	"fmt"
-
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	//"github.com/go-playground/validator/v10"
-
 )
 
 func Signup() gin.HandlerFunc {
@@ -21,15 +19,15 @@ func Signup() gin.HandlerFunc {
 
 		//validationErr := validate.Struct(user) //check detail of user struct variable
 		//if validationErr != nil {
-			//c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
-			//return
+		//c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
+		//return
 		//}
 		//check duplicate rows not included
 		token, refreshToken, _ := GenerateAllTokens(user.Name, user.User_type)
 		user.Token = token
 		user.Refresh_token = refreshToken
 
-		result, err := db.Exec("INSERT INTO users (name,password,refresh_token,token,user_type) VALUES ($1, $2, $3,$4,$5)", user.Name ,user.Password,user.Refresh_token,user.Token,user.User_type)
+		result, err := db.Exec("INSERT INTO users (name,password,refresh_token,token,user_type) VALUES ($1, $2, $3,$4,$5)", user.Name, user.Password, user.Refresh_token, user.Token, user.User_type)
 
 		if err != nil {
 			fmt.Printf("test")
@@ -51,9 +49,9 @@ func Login() gin.HandlerFunc {
 		}
 		row := db.QueryRow("SELECT * FROM users WHERE (name = $1 AND password = $2)", user.Name, user.Password)
 
-		if err := row.Scan(&foundUser.ID, &foundUser.Name, &foundUser.Password,&foundUser.Token ,&foundUser.Refresh_token, &foundUser.User_type); err != nil {
+		if err := row.Scan(&foundUser.ID, &foundUser.Name, &foundUser.Password, &foundUser.Token, &foundUser.Refresh_token, &foundUser.User_type); err != nil {
 			if err == sql.ErrNoRows {
-				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect error " + user.Name+user.Password})
+				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect error " + user.Name + user.Password})
 				return
 			}
 
@@ -62,16 +60,16 @@ func Login() gin.HandlerFunc {
 		}
 
 		token, refreshToken, err := GenerateAllTokens(foundUser.Name, foundUser.User_type)
-		if(err!= nil){
+		if err != nil {
 			c.IndentedJSON(http.StatusNotFound, gin.H{"message": err.Error()})
 			return
 		}
-		
+
 		UpdateAllTokens(token, refreshToken, foundUser.ID)
 
 		newrow := db.QueryRow("SELECT * FROM users WHERE (name = $1 AND password = $2)", user.Name, user.Password)
 
-		if err := newrow.Scan(&foundUser.ID, &foundUser.Name, &foundUser.Password,&foundUser.Token ,&foundUser.Refresh_token, &foundUser.User_type); err != nil {
+		if err := newrow.Scan(&foundUser.ID, &foundUser.Name, &foundUser.Password, &foundUser.Token, &foundUser.Refresh_token, &foundUser.User_type); err != nil {
 			if err == sql.ErrNoRows {
 				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "password or username incorrect error2"})
 				return
@@ -85,10 +83,40 @@ func Login() gin.HandlerFunc {
 
 }
 
+func GetUserName() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		type UserName struct {
+			ID   uint   `json:"uid"`
+			Name string `json:"username"`
+		}
+		uid := c.Param("user_id")
+		var userNames []UserName
+
+		rows, err := db.Query("SELECT uid, name FROM users WHERE uid != $1", uid)
+		if err != nil {
+			c.IndentedJSON(http.StatusNotFound, gin.H{"message": "error"})
+			return
+		}
+
+		for rows.Next() {
+			var userName UserName
+			if err := rows.Scan(&userName.ID, &userName.Name); err != nil {
+				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "error"})
+				return
+			}
+
+			userNames = append(userNames, userName)
+		}
+		c.IndentedJSON(http.StatusOK, userNames)
+		defer rows.Close()
+
+	}
+}
+ 
 func GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if err := CheckUserType(c, "ADMIN"); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error":err.Error()})
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -102,7 +130,7 @@ func GetUsers() gin.HandlerFunc {
 
 		for rows.Next() {
 			var user User
-			if err := rows.Scan(&user.ID, &user.Name, &user.Password, &user.Token,&user.Refresh_token,&user.User_type); err != nil {
+			if err := rows.Scan(&user.ID, &user.Name, &user.Password, &user.Token, &user.Refresh_token, &user.User_type); err != nil {
 				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "error"})
 				return
 			}
@@ -123,7 +151,7 @@ func GetUser() gin.HandlerFunc {
 
 		row := db.QueryRow("SELECT * FROM users WHERE uid = $1", uid)
 
-		if err := row.Scan(&user.ID, &user.Name, &user.Password, &user.Token,&user.Refresh_token,&user.User_type); err != nil {
+		if err := row.Scan(&user.ID, &user.Name, &user.Password, &user.Token, &user.Refresh_token, &user.User_type); err != nil {
 			if err == sql.ErrNoRows {
 				c.IndentedJSON(http.StatusNotFound, gin.H{"message": "no row"})
 				return

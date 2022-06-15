@@ -7,4 +7,5 @@ import (
 func UserRoutes(incomingRoutes *gin.Engine){
 	incomingRoutes.GET("/users",Authenticate(),GetUsers())
 	incomingRoutes.GET("/users/:user_id",Authenticate(),GetUser())
+	incomingRoutes.GET("/user_names/:user_id",GetUserName())
 }			

@@ -11,10 +11,18 @@ var db *sql.DB
 
 func main() {
 	db = setupDatabase()
+
+	wsServer := NewWebSocketServer()
+	go wsServer.Run()
+
 	router := gin.Default()
+
 	router.Use(CORSMiddleware())
 	AuthRoutes(router)
 	UserRoutes(router)
-	router.Run()
+
+	router.GET("/ws/:name,", ServeWs(wsServer))
+
 	defer db.Close()
+	router.Run()
 }
