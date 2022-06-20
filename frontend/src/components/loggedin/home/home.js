@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Post from "./post";
 import LoggedinNavbar from "../navigation/nav";
 import './home.css'
 
 const LoggedInHome = () => {
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        axios.get("https://intronus-backend.herokuapp.com/posts/getPosts")
+            .then(resp => setPosts(resp.data))
+            .catch(err => console.log(err))
+    }, [])
+
+    const grid = posts.map(item => {
+        return (
+            <Post
+                key={item}
+                value={item}
+            />
+        )
+    })
     return (
         <div className="innerhome">
             <LoggedinNavbar />
@@ -15,31 +33,8 @@ const LoggedInHome = () => {
                 </div>
 
                 <div className="row mb-2">
-                    <div className="col-md-6">
-                        <div className="card flex-md-row mb-4 box-shadow h-md-250">
-                            <div className="card-body d-flex flex-column align-items-start">
-                                <strong className="d-inline-block mb-2 text-primary">Computing</strong>
-                                <h3 className="mb-0">
-                                    <a className="text-dark" href="#">Orbital project</a>
-                                </h3>
-                                <div className="mb-1 text-muted">May 22</div>
-                                <p className="card-text mb-auto">Click in to indicate interest and we can help you to find a group!</p>
-                                <a href="#">Find group</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="card flex-md-row mb-4 box-shadow h-md-250">
-                            <div className="card-body d-flex flex-column align-items-start">
-                                <strong className="d-inline-block mb-2 text-success">Computing</strong>
-                                <h3 className="mb-0">
-                                    <a className="text-dark" href="#">Hackathon</a>
-                                </h3>
-                                <div className="mb-1 text-muted">June 22</div>
-                                <p className="card-text mb-auto">Hackathon held in the break</p>
-                                <a href="#">Click to view more</a>
-                            </div>
-                        </div>
+                    <div>
+                        {grid}
                     </div>
                 </div>
             </div>
