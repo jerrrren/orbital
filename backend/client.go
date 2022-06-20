@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -14,39 +15,47 @@ var upgrader = websocket.Upgrader{
 	ReadBufferSize:  4096,
 	WriteBufferSize: 409,
 	CheckOrigin: func(r *http.Request) bool {
-		origin := r.Header.Get("Origin")
-		return origin == "http://localhost:3000"
+		//	origin := r.Header.Get("Origin")
+		//	return origin == "http://localhost:3000"
+		return true
 	},
 }
 
 // upgrader is used to upgrade HTTP server connection to WebSocket
 
-func newClient(conn *websocket.Conn, wsServer *WsServer, name string) *Client {
+func newClient(conn *websocket.Conn, wsServer *WsServer, id int) *Client {
 	return &Client{
 		conn:     conn,
 		wsServer: wsServer,
-        send:     make(chan []byte),
+		send:     make(chan []byte),
 		rooms:    make(map[*Room]bool),
-		Name:     name,
+		ID:       id,
 	}
 }
 
 //receives http and return http request
 func ServeWs(wsServer *WsServer) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		name := c.Param("name")
-		
+
+		id, ok := c.Request.URL.Query()["id"]
+		uid, _ := strconv.Atoi(id[0])
+
+		fmt.Println(uid)
+		if !ok {
+			fmt.Println("Url Param 'id' is missing")
+			return
+		}
 		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		defer conn.Close()
-		client := newClient(conn, wsServer, name)
-        go client.readPump()
+
+		client := newClient(conn, wsServer, uid)
+		go client.readPump()
 		go client.writePump()
-		
+
 		wsServer.register <- client
 		fmt.Println("New Client joined the hub!")
 
@@ -85,34 +94,37 @@ func (client *Client) disconnect() {
 
 }
 
-func (client *Client) getName() string {
-	return client.Name
+func (client *Client) getClientId() int {
+	return client.ID
 }
 
-func (client *Client) findClientByName(name string) *Client {
-	var foundClient *Client
+func (client *Client) findClientById(id int) []*Client {
+	var foundClients []*Client
+
 	for client := range client.wsServer.clients {
-		if client.Name == name{
-			foundClient = client
-			break
+
+		if client.ID == id {
+			foundClients = append(foundClients, client)
 		}
 	}
-	return foundClient
+	return foundClients
 }
 
 func (client *Client) handleNewMessage(jsonMessage []byte) {
+	fmt.Println("handlingprivateMessage")
+
 	var message Message
 	if err := json.Unmarshal(jsonMessage, &message); err != nil {
 		fmt.Printf("Error on unmarshal JSON message %s", err)
 	}
-	message.Sender = client
+	//	message.Sender = client
 	switch message.Action {
-	case SendMessageAction:
-		roomName := message.Target
-		if room := client.wsServer.findRoomByName(roomName); room != nil {
-			room.broadcast <- &message
-		}
-
+	/*case SendMessageAction:
+	roomName := message.Target
+	if room := client.wsServer.findRoomByName(roomName); room != nil {
+		room.broadcast <- &message
+	}
+	*/
 	case JoinRoomAction:
 		client.handleJoinRoomMessage(message)
 
@@ -123,15 +135,18 @@ func (client *Client) handleNewMessage(jsonMessage []byte) {
 		client.handlePrivateMessage(message)
 	}
 
-	
-
 }
 
 func (client *Client) handlePrivateMessage(message Message) {
-	targetClientName := message.Target
-	if targetClient := client.wsServer.findClientByName(targetClientName); targetClient != nil{
-		targetClient.send <- message.encode()
+	targetClientId, _ := strconv.Atoi(message.Target)
+	
+	db.Exec("INSERT INTO chats (user_id_1,user_id_2,body,messagetime) VALUES ($1, $2,$3 ,$4)", message.SenderId, message.Target, message.Message,message.TimeStamp)
+	
+	for _, client := range client.findClientById(targetClientId) {
+		fmt.Println("found client to send pm")
+		client.send <- message.encode()
 	}
+
 }
 
 func (client *Client) handleJoinRoomMessage(message Message) {
@@ -160,7 +175,7 @@ func (client *Client) handleLeaveRoomMessage(message Message) {
 
 func (client *Client) readPump() {
 	defer func() {
-        client.disconnect()
+		client.disconnect()
 	}()
 
 	client.conn.SetReadLimit(maxMessageSize)

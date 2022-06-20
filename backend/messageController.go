@@ -18,3 +18,4 @@ func (message *Message) encode() []byte {
 
 	return json
 }
+

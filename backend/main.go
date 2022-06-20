@@ -21,7 +21,8 @@ func main() {
 	AuthRoutes(router)
 	UserRoutes(router)
 
-	router.GET("/ws/:name,", ServeWs(wsServer))
+	router.GET("/ws", ServeWs(wsServer))
+
 
 	defer db.Close()
 	router.Run()

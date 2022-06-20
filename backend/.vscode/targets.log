@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jun 15 10:46:02 2022
+# Make data base, printed on Mon Jun 20 13:20:12 2022
 
 # Variables
 
@@ -23,9 +23,9 @@ USERPROFILE = C:\Users\cheej
 # environment
 LOCALAPPDATA = C:\Users\cheej\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-012bae23-c782-4c3a-bb78-da35b8da5066-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-5e237c79-62fb-48ea-9d30-95dcdc8d28f0-sock
 # environment
-VSCODE_CWD = C:\WINDOWS\System32
+VSCODE_CWD = C:\Users\cheej\AppData\Local\Programs\Microsoft VS Code
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
@@ -41,7 +41,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_9440_ZWSIDMOJNYQNUQWI
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_3860_WSBVXHUTVPDKFKBO
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -55,7 +55,7 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\cheej\AppData\Roaming\Code\CachedData\4af164ea3a06f701fe3e89a2bcbb421d2026b68f
+VSCODE_CODE_CACHE_PATH = C:\Users\cheej\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # default
@@ -95,7 +95,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 9440
+VSCODE_PID = 3860
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -165,7 +165,7 @@ GNUMAKEFLAGS :=
 # environment
 OS = Windows_NT
 # environment
-__COMPAT_LAYER = RunAsAdmin
+__COMPAT_LAYER = RunAsAdmin Installer
 # makefile
 .DEFAULT_GOAL := image
 # default
@@ -195,7 +195,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 TEMP = C:\Users\cheej\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\e79256b1ce000de844a5805c41116187-1.68.0-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\e79256b1ce000de844a5805c41116187-1.68.1-main-sock
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # default
@@ -279,6 +279,6 @@ postgres:
 # strcache performance: lookups = 34 / hit rate = 17%
 # hash-table stats:
 # Load=28/8192=0%, Rehash=0, Collisions=0/34=0%
-# Finished Make data base on Wed Jun 15 10:46:02 2022
+# Finished Make data base on Mon Jun 20 13:20:12 2022
 
  

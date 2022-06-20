@@ -71,10 +71,10 @@ func (server *WsServer) findRoomByName(name string) *Room {
 	return foundRoom
 }
 
-func (server *WsServer) findClientByName(name string) *Client {
+func (server *WsServer) findClientById(id int) *Client {
 	var foundClient *Client
 	for client := range server.clients {
-		if client.getName() == name {
+		if client.getClientId() == id {
 			foundClient = client
 		}
 	}

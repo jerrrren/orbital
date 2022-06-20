@@ -26,14 +26,12 @@ type Token struct {
 }
 
 
-
-
 type Client struct {
 	conn     *websocket.Conn
 	wsServer *WsServer
 	send     chan []byte
 	rooms    map[*Room]bool
-	Name     string `json:"name"`
+	ID     int `json:"id"`
 }
 
 type WsServer struct {
@@ -56,5 +54,7 @@ type Message struct {
 	Action  string  `json:"action"`
 	Message string  `json:"message"`
 	Target  string  `json:"target"`
-	Sender  *Client `json:"sender"`
+	SenderId string `json:"senderId"`
+	TimeStamp string `json:"timeStamp"`
+//	Sender  *Client 
 }

@@ -41,7 +41,7 @@ func (room *Room) notifyClientJoined(client *Client) {
 	message := &Message{
 		Action:  SendMessageAction,
 		Target:  room.name,
-		Message: fmt.Sprintf(welcomeMessage, client.getName()),
+		Message: fmt.Sprintf(welcomeMessage, client.getClientId()),
 	}
 
 	room.broadcastToClientsInRoom(message.encode())

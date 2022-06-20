@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -30,7 +29,6 @@ func Signup() gin.HandlerFunc {
 		result, err := db.Exec("INSERT INTO users (name,password,refresh_token,token,user_type) VALUES ($1, $2, $3,$4,$5)", user.Name, user.Password, user.Refresh_token, user.Token, user.User_type)
 
 		if err != nil {
-			fmt.Printf("test")
 			c.IndentedJSON(http.StatusBadRequest, gin.H{"test": err})
 			return
 		}
@@ -83,16 +81,15 @@ func Login() gin.HandlerFunc {
 
 }
 
-func GetUserName() gin.HandlerFunc {
+func GetUserNames() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		type UserName struct {
 			ID   uint   `json:"uid"`
 			Name string `json:"username"`
 		}
-		uid := c.Param("user_id")
 		var userNames []UserName
 
-		rows, err := db.Query("SELECT uid, name FROM users WHERE uid != $1", uid)
+		rows, err := db.Query("SELECT uid, name FROM users ")
 		if err != nil {
 			c.IndentedJSON(http.StatusNotFound, gin.H{"message": "error"})
 			return
@@ -112,6 +109,35 @@ func GetUserName() gin.HandlerFunc {
 
 	}
 }
+
+func GetMessages() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		
+		var messages []Message
+		uid := c.Param("user_id")
+
+		rows, err := db.Query("SELECT user_id_1,user_id_2,body,messagetime FROM chats WHERE user_id_1 = $1 OR user_id_2 = $1",uid)
+		if err != nil {
+			c.IndentedJSON(http.StatusNotFound, gin.H{"GetMessages1": err})
+			return
+		}
+
+		for rows.Next() {
+			var message Message
+			if err := rows.Scan(&message.SenderId, &message.Target, &message.Message,&message.TimeStamp); err != nil {
+				c.IndentedJSON(http.StatusNotFound, gin.H{"GetMessages2": err})
+				return
+			}
+
+			messages = append(messages, message)
+		}
+		c.IndentedJSON(http.StatusOK, messages)
+		defer rows.Close()
+
+	}
+}
+
+
  
 func GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
