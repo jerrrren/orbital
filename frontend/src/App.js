@@ -6,13 +6,16 @@ import LandingPage from './components/landingpage/landingpage'
 import Register from "./components/register/register"
 import LoggedInHome from './components/loggedin/home/home';
 import FriendPage from './components/loggedin/friendPage/friendPage';
+import ChatPage from './components/loggedin/chatPage/chatPage'
+
+import { ChakraProvider } from '@chakra-ui/react'
 import Contents from './components/loggedin/home/postContent';
 import Addpost from './components/loggedin/post/addPost';
 
 function App() {
 
   return (
-    <div>
+    <ChakraProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
@@ -22,10 +25,12 @@ function App() {
           <Route path="/register" exact element={<Register />} />
           <Route path="/logout" exact element={<Logout />} />
           <Route path="/post/content/:id" element={<Contents />} />
+          <Route path = "chat/:id"></Route>
           <Route path="/post/add" element={< Addpost />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </ChakraProvider>
+    
   );
 }
 

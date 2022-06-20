@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import axios from 'axios'
-import './register.css';
-import Nav from "../../components/navigation/navbar"
+import axios from "axios";
+import "./register.css";
+import Nav from "../../components/navigation/navbar";
 
 const Register = () => {
     const [name, setName] = useState("")

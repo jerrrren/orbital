@@ -17,9 +17,9 @@ const Login = () => {
 
         e.preventDefault()
 
-        axios.post("https://intronus-backend.herokuapp.com/user/signin", {
-            "Username": name,
-            "Password": password
+        axios.post("http://localhost:8080/users/login", {
+            "username": name,
+            "password": password
         })
             .then(resp => {
                 console.log(resp)

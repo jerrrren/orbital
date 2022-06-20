@@ -7,6 +7,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
+/*
+online postgres server
 const (
 	host     = "ec2-54-211-255-161.compute-1.amazonaws.com"
 	port     =  5432
@@ -14,10 +16,20 @@ const (
 	password = "e6398263fc3d8545d90cb455bc46cbcf7c47fd74ef9e6a8633e15c48c90feeff"
 	dbname   = "db2jrt4m1j59dh"
 )
+*/
+
+
+const (
+	host     = "localhost"
+	port     =  5400
+	user     = "postgres"
+	password = "docker"
+	dbname   = "postgres"
+)
 
 func setupDatabase() *sql.DB {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=require",
+		"password=%s dbname=%s sslmode=disable",//need to change when uploading
 		host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlInfo)
