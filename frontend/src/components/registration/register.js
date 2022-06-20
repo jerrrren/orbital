@@ -15,18 +15,19 @@ const Register = () => {
     const submit = (e) => {
         e.preventDefault()
 
-        axios.post("https://intronus-backend.herokuapp.com/user/signup", {
-            "username": name,
-            "password": password,
-        })
-            .then(resp => {
-                console.log(resp)
-                setRedirect(true)
-            })
-            .catch(err => {
-                setErr(true)
-                setErrMsg(err.response.data.error)
-            })
+        axios
+          .post("http://localhost:8080/users/signup", {
+            username: name,
+            password: password,
+          })
+          .then((resp) => {
+            console.log(resp);
+            setRedirect(true);
+          })
+          .catch((err) => {
+            setErr(true);
+            setErrMsg(err.response.data.error);
+          });
     }
 
     if (redirect) {

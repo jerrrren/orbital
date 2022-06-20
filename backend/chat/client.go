@@ -1,4 +1,4 @@
-package main
+package chat
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/bojie/orbital/backend/db"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
@@ -19,6 +20,14 @@ var upgrader = websocket.Upgrader{
 		//	return origin == "http://localhost:3000"
 		return true
 	},
+}
+
+type Client struct {
+	conn     *websocket.Conn
+	wsServer *WsServer
+	send     chan []byte
+	rooms    map[*Room]bool
+	ID       int `json:"id"`
 }
 
 // upgrader is used to upgrade HTTP server connection to WebSocket
@@ -139,9 +148,9 @@ func (client *Client) handleNewMessage(jsonMessage []byte) {
 
 func (client *Client) handlePrivateMessage(message Message) {
 	targetClientId, _ := strconv.Atoi(message.Target)
-	
-	db.Exec("INSERT INTO chats (user_id_1,user_id_2,body,messagetime) VALUES ($1, $2,$3 ,$4)", message.SenderId, message.Target, message.Message,message.TimeStamp)
-	
+
+	db.DB.Exec("INSERT INTO chats (user_id_1,user_id_2,body,messagetime) VALUES ($1, $2,$3 ,$4)", message.SenderId, message.Target, message.Message, message.TimeStamp)
+
 	for _, client := range client.findClientById(targetClientId) {
 		fmt.Println("found client to send pm")
 		client.send <- message.encode()

@@ -1,8 +1,19 @@
-package main
+package chat
 
 import (
 	"fmt"
 )
+
+
+type Room struct {
+	name       string
+	clients    map[*Client]bool
+	register   chan *Client
+	unregister chan *Client
+	broadcast  chan *Message
+}
+
+
 
 func (room *Room) RunRoom() {
 	for {

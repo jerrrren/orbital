@@ -1,4 +1,4 @@
-module example/backend
+module github.com/bojie/orbital/backend
 
 go 1.17
 

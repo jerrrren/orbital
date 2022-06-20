@@ -1,9 +1,12 @@
-package main
+package routerMiddleware
 
 import(
 	"fmt"
 	"net/http"
 	"github.com/gin-gonic/gin"
+
+	"github.com/bojie/orbital/backend/auth"
+	
 )
 
 func Authenticate() gin.HandlerFunc{
@@ -14,7 +17,7 @@ func Authenticate() gin.HandlerFunc{
 			c.Abort()
 			return
 		}	
-		claims,err := ValidateToken(clientToken)
+		claims,err := auth.ValidateToken(clientToken)
 		if err!=""{
 			c.JSON(http.StatusInternalServerError, gin.H{"error":err})
 			c.Abort()

@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"database/sql"
@@ -26,6 +26,10 @@ const (
 	password = "docker"
 	dbname   = "postgres"
 )
+
+
+var DB *sql.DB = setupDatabase()
+
 
 func setupDatabase() *sql.DB {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+

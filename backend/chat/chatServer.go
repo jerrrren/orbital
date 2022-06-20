@@ -1,4 +1,13 @@
-package main
+package chat
+
+type WsServer struct {
+	clients    map[*Client]bool
+	register   chan *Client
+	unregister chan *Client
+	broadcast  chan []byte
+	rooms      map[*Room]bool
+}
+
 
 func NewRoom(name string) *Room {
 	return &Room{
