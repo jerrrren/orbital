@@ -9,20 +9,24 @@ const Register = () => {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [redirect, setRedirect] = useState(false)
-    const [errs, setErrs] = useState("")
+    const [err, setErr] = useState(false)
+    const [errMsg, setErrMsg] = useState("")
 
     const submit = (e) => {
         e.preventDefault()
 
-        axios.post("/api/signup", {
+        axios.post("https://intronus-backend.herokuapp.com/user/signup", {
             "username": name,
-            "password": password
+            "password": password,
         })
             .then(resp => {
                 console.log(resp)
                 setRedirect(true)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setErr(true)
+                setErrMsg(err.response.data.error)
+            })
     }
 
     if (redirect) {
@@ -32,6 +36,11 @@ const Register = () => {
     return (
         <div className="register">
             <Nav />
+            {err ? (
+                <div class="alert alert-danger" role="alert">
+                    {errMsg}
+                </div>) :
+                (<div></div>)}
             <main className="form-signin w-100 m-auto">
                 <form onSubmit={e => submit(e)}>
                     <h1 className="h3 mb-3 fw-normal">Welcome aboard!</h1>
