@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jun 20 21:49:36 2022
+# Make data base, printed on Mon Jun 20 22:11:13 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ USERPROFILE = C:\Users\cheej
 # environment
 LOCALAPPDATA = C:\Users\cheej\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-d1b6e0fc-e709-4fb7-9071-7a8664afaeb2-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-f99eab34-41f7-4551-9e25-08bb8d1d8d83-sock
 # environment
 VSCODE_CWD = C:\Users\cheej\AppData\Local\Programs\Microsoft VS Code
 # environment
@@ -41,7 +41,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_35592_XBQXONMRHBIZCIQO
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_16200_PKHXVYPDLIYLFVRV
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -95,7 +95,7 @@ MAKEFILE_LIST :=
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 35592
+VSCODE_PID = 16200
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -285,7 +285,8 @@ GNUmakefile:
 
 # strcache performance: lookups = 19 / hit rate = 15%
 # hash-table stats:
-# Load=16/8192=0%, Rehash=0, Collisions=0/19=0%
-# Finished Make data base on Mon Jun 20 21:49:36 2022
+# Load=16/8192=0%, Rehash=0, Collisions=0/19= 
+0%
+# Finished Make data base on Mon Jun 20 22:11:13 2022
 
  

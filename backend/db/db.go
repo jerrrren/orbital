@@ -3,9 +3,13 @@ package db
 import (
 	"database/sql"
 	"fmt"
+//	"os"
 
 	_ "github.com/lib/pq"
+	
+
 )
+
 
 /*
 online postgres server
@@ -19,9 +23,10 @@ const (
 */
 
 
-const (
-	host     = "localhost"
-	port     =  5400
+
+var (
+	host     ="localhost"
+	port     = 5400
 	user     = "postgres"
 	password = "docker"
 	dbname   = "postgres"
@@ -32,9 +37,10 @@ var DB *sql.DB = setupDatabase()
 
 
 func setupDatabase() *sql.DB {
+	fmt.Println("hello")
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",//need to change when uploading
-		host, port, user, password, dbname)
+		host, port , user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
