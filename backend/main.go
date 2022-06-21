@@ -25,5 +25,5 @@ func main() {
 	router.GET("/ws", chat.ServeWs(wsServer))
 
 	defer db.DB.Close()
-	router.Run()
+	router.Run(":8080")
 }

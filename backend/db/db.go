@@ -3,13 +3,13 @@ package db
 import (
 	"database/sql"
 	"fmt"
-//	"os"
+	"log"
+	"os"
+	"strconv"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	
-
 )
-
 
 /*
 online postgres server
@@ -24,23 +24,28 @@ const (
 
 
 
-var (
-	host     ="localhost"
-	port     = 5400
-	user     = "postgres"
-	password = "docker"
-	dbname   = "postgres"
-)
-
-
 var DB *sql.DB = setupDatabase()
 
-
 func setupDatabase() *sql.DB {
-	fmt.Println("hello")
+
+	err := godotenv.Load(".env")
+	if err!=nil{
+		log.Fatal("Error loading .env file")
+	}
+
+	
+
+	var (
+		host     = os.Getenv("HOST")
+		port, _  = strconv.Atoi(os.Getenv("DB_PORT"))
+		user     = os.Getenv("USER")
+		password = os.Getenv("PASSWORD")
+		dbname   = os.Getenv("DB")
+	)
+
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",//need to change when uploading
-		host, port , user, password, dbname)
+		"password=%s dbname=%s sslmode=disable", //need to change when uploading
+		host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
