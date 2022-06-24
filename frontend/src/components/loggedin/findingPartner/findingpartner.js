@@ -1,103 +1,100 @@
-import react from 'react'
+import React, { useState, useEffect } from "react";
+import LoggedinNavbar from "../navigation/nav";
+import axios from "axios";
+import './findingPartner.css'
+import { isInteger } from "formik";
+import { AccordionDescendantsProvider } from "@chakra-ui/react";
+import { Navigate } from "react-router-dom";
+import WaitingPage from "../waiting/waitingPage";
+import ChatPage from "../chatPage/chatPage";
 
-const FindingPartner = () => {
+const PairingPage = () => {
+    const [commitment, setCommitment] = useState(1)
+    const [location, setLocation] = useState("")
+
+    const [single, setSingle] = useState(true)
+    const [paired, setPaired] = useState(false)
+    const [partner, setPartner] = useState("")
+
+    const submit = (e) => {
+        e.preventDefault()
+        //adds info about the indicators and try to find a matching if possible
+        axios
+          .post("http://localhost:8080/pairing/fillIndicators", {
+            Name: localStorage.getItem("username"),
+            Commitment: parseInt(commitment),
+            Location: location.toLowerCase(),
+          })
+          .then((resp) => {
+            setSingle(false);
+            axios
+              .post("http://localhost:8080/pairing/match", {
+                Name: localStorage.getItem("username"),
+              })
+              .then((resp) => {
+                setPaired(resp.data.result);
+                setPartner(resp.data.message);
+              })
+              .catch((resp) => console.log(resp));
+          })
+          .catch((resp) => {
+            console.log(resp);
+          });
+    }
+
+    if (paired) {
+        axios
+          .all([
+            axios.post("http://localhost:8080/pairing/deleteSingleUser", {
+              Name: localStorage.getItem("username"),
+            }),
+            axios.post("http://localhost:8080/pairing/deleteSingleUser", {
+              Name: partner,
+            }),
+            axios.post("http://localhost:8080/pairing/addPairedUser", {
+              Name: localStorage.getItem("username"),
+              Partner: partner,
+            }),
+          ])
+          .then(
+            axios.spread((resp1, resp2, resp3) => {
+              console.log(resp1, resp2, resp3);
+            })
+          )
+          .catch((err) => console.log(err));
+    }
     return (
         <div>
-            <form className="card p-2">
-                <div className="input-group">
-                    <input type="text" className="form-control" placeholder="Promo code" />
-                    <div className="input-group-append">
-                        <button type="submit" className="btn btn-secondary">Redeem</button>
+            {single ? (<div><LoggedinNavbar />
+                <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+                    <div className="col-md-6 px-0">
+                        <h1 className="display-4 font-italic">Welcome to the pairing page!</h1>
                     </div>
                 </div>
-            </form>
+                <h1 className="normal">Fill up the details below to get paired</h1>
+                <div className="business">
+                    <form onSubmit={e => submit(e)}>
 
-            <div className="col-md-8 order-md-1">
-                <h4 className="mb-3">Billing address</h4>
-                <form className="needs-validation" novalidate />
-                <div className="row">
-                    <div className="col-md-6 mb-3">
-                        <label for="firstName">First name</label>
-                        <input type="text" className="form-control" id="firstName" placeholder="" value="" required />
-                        <div className="invalid-feedback">
-                            Valid first name is required.
+                        <div className="form-floating">
+                            <input type="text" className="form-control" placeholder="Name" required
+                                onChange={e => setCommitment(e.target.value)}
+                            />
+                            <label htmlFor="floatingInput">Commitment Level(1-5)</label>
                         </div>
-                    </div>
-                    <div className="col-md-6 mb-3">
-                        <label for="lastName">Last name</label>
-                        <input type="text" className="form-control" id="lastName" placeholder="" value="" required />
-                        <div className="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-                </div>
 
-                <div className="mb-3">
-                    <label for="username">Username</label>
-                    <div className="input-group">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">@</span>
+                        <div className="form-floating">
+                            <input type="text" className="form-control" placeholder="Password" required
+                                onChange={e => setLocation(e.target.value)}
+                            />
+                            <label htmlFor="floatingPassword">Location (North/South/East/Central/West)</label>
                         </div>
-                        <input type="text" className="form-control" id="username" placeholder="Username" required />
-                        <div className="invalid-feedback" style="width: 100%;">
-                            Your username is required.
-                        </div>
-                    </div>
-                </div>
 
-                <div className="mb-3">
-                    <label for="email">Email <span className="text-muted">(Optional)</span></label>
-                    <input type="email" className="form-control" id="email" placeholder="you@example.com" />
-                    <div className="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div>
+                        <button type="submit" className="btn btn-primary">Submit</button>
 
-                <div className="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" className="form-control" id="address" placeholder="1234 Main St" required />
-                    <div className="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                </div>
-
-                <div className="mb-3">
-                    <label for="address2">Address 2 <span className="text-muted">(Optional)</span></label>
-                    <input type="text" className="form-control" id="address2" placeholder="Apartment or suite" />
-                </div>
-
-                <div className="row">
-                    <div className="col-md-5 mb-3">
-                        <label for="country">Country</label>
-                        <select className="custom-select d-block w-100" id="country" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
-                        </select>
-                        <div className="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <label for="state">State</label>
-                        <select className="custom-select d-block w-100" id="state" required>
-                            <option value="">Choose...</option>
-                            <option>California</option>
-                        </select>
-                        <div className="invalid-feedback">
-                            Please provide a valid state.
-                        </div>
-                    </div>
-                    <div className="col-md-3 mb-3">
-                        <label for="zip">Zip</label>
-                        <input type="text" className="form-control" id="zip" placeholder="" required />
-                        <div className="invalid-feedback">
-                            Zip code required.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+                    </form>
+                </div></div>) : (<div>{paired ? <ChatPage /> : <WaitingPage />}</div>)}
+        </div >
     )
 }
 
+export default PairingPage

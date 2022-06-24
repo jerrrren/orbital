@@ -4,13 +4,14 @@ import { Formik, Form, Field } from "formik";
 
 import LoggedinNavbar from "../navigation/nav";
 import { Button, Flex, Input, Box } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 import ChatMessages from "./chatMessages";
 
 const ChatPage = () => {
   const [receiver, setreceiver] = useState(null);
-  const { id } = useParams();
+  const id = useAuth((state) => state.uid);
+
   const URL = "http://localhost:8080/user_names/" + id;
   const wsURL = "ws://localhost:8080/ws?id=" + id;
   const messagesURL = "http://localhost:8080/messages/" + id;
@@ -90,7 +91,7 @@ const ChatPage = () => {
   }, []); //[ws.onmessage, ws.onopen]);
 
   const tabs = users
-    .filter((name) => name.uid != id)
+    ?.filter((name) => name.uid != id)
     .map((user) => (
       <Button
         width="15vw"

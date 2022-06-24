@@ -2,7 +2,7 @@ import { Flex, Box, Heading, Text } from "@chakra-ui/react";
 
 const ChatMessages = (props) => {
   const messageboxes = props.messages
-    .filter(
+    ?.filter(
       (a) => (a.target == props.receiver.uid) | (a.senderId == props.receiver.uid)
     )
     .sort(

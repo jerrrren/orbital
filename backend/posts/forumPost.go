@@ -13,7 +13,6 @@ import (
 	"github.com/lib/pq"
 
 	"github.com/bojie/orbital/backend/db"
-	
 )
 
 type Post struct {
@@ -25,6 +24,26 @@ type Post struct {
 	CreatedAt    time.Time
 	ModifiedAt   time.Time
 	Participants pq.StringArray
+}
+
+func CreatePost() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var post Post
+		if err := c.BindJSON(&post); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		result, err := db.DB.Exec("INSERT INTO posts (field,name,intro,content) VALUES ($1, $2, $3,$4)", post.Field, post.Name, post.Intro, post.Content)
+		if err != nil {
+			c.IndentedJSON(http.StatusBadRequest, gin.H{"test": err})
+			return
+		}
+
+		c.IndentedJSON(http.StatusOK, result)
+
+	}
+
 }
 
 func getPosts() ([]Post, error) {

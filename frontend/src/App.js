@@ -13,6 +13,12 @@ import ChatPage from './components/loggedin/chatPage/chatPage'
 
 import Contents from './components/loggedin/home/postContent';
 import Addpost from './components/loggedin/post/addPost';
+import PairingPage from "./components/loggedin/findingPartner/findingpartner";
+
+
+import PublicRoute from './routes/PublicRoute'
+import PrivateRoute from "./routes/PrivateRoute";
+
 
 function App() {
 
@@ -20,17 +26,56 @@ function App() {
     <ChakraProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" exact element={<LandingPage />} />
-          <Route path="/register" exact element={<Register />} />
+          <Route
+            path="/"
+            exact
+            element={
+              <PublicRoute>
+                <LandingPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={<PublicRoute children={<Register />} />}
+          />
+          <Route
+            path="/home"
+            element={<PrivateRoute children={<LoggedInHome />} />}
+          />
+          <Route
+            path="/friends"
+            element={<PrivateRoute children={<FriendPage />} />}
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
 
+          <Route path="/logout" element={<Logout />} />
 
-          <Route path="/home/:id" element={<LoggedInHome />} />
-          <Route path="/friends/:id" element={<FriendPage />} />
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/logout" exact element={<Logout />} />
-          <Route path="/post/content/:id" element={<Contents />} />
-          <Route path="/chat/:id" element={<ChatPage />} />
-          <Route path="/post/add" element={<Addpost />} />
+          <Route
+            path="/chat"
+            element={<PrivateRoute children={<ChatPage />} />}
+          />
+          <Route
+            path="/post/add"
+            element={
+              <PrivateRoute>
+                <Addpost />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/pairing/fillDetails"
+            element={
+                <PairingPage />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

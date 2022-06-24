@@ -14,4 +14,5 @@ func UserRoutes(incomingRoutes *gin.Engine){
 	incomingRoutes.GET("/messages/:user_id",chat.GetMessages())
 	incomingRoutes.GET("/posts/getPosts", posts.GetPosts)
 	incomingRoutes.GET("/posts/getPosts/:id", posts.GetPostsById)
-}			
+	incomingRoutes.POST("/posts/createpost",posts.CreatePost())
+}				

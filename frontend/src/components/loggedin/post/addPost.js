@@ -1,34 +1,79 @@
 import React from "react";
+import { useState } from "react";
+import axios from "axios";
+
 import LoggedinNavbar from "../navigation/nav";
 
 const Addpost = () => {
-    return (
-        <div>
-            <LoggedinNavbar />
-            <form>
-                <div className="form-group">
-                    <label for="exampleFormControlInput1">Your name</label>
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="your name" />
-                </div>
-                <div className="form-group">
-                    <label for="exampleFormControlTextarea1">Project title</label>
-                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div className="form-group">
-                    <label for="exampleFormControlTextarea1">Project intro</label>
-                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div className="form-group">
-                    <label for="exampleFormControlTextarea1">Description</label>
-                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div className="form-group">
-                    <label for="exampleFormControlInput1">Dateline</label>
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Month day" />
-                </div>
-            </form>
-        </div>
-    )
-}
+  const [field, setField] = useState("");
+  const [name,setName] = useState("");
+  const [intro,setIntro] = useState("");
+  const [content,setContent] = useState("");
+  
+  const submit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/posts/createpost", {
+        Name: name,
+        Field: field,
+        Intro: intro,
+        Content: content
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-export default Addpost
+  return (
+    <div>
+      <LoggedinNavbar />
+      <form onSubmit={(e) => submit(e)}>
+        <div className="form-group">
+          <label >Your name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="your name"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label >Project title</label>
+          <textarea
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            onChange={(e) => setField(e.target.value)}
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label >Project intro</label>
+          <textarea
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            onChange={(e) => setIntro(e.target.value)}
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label >Description</label>
+          <textarea
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </div>
+        <button className="w-100 btn btn-lg btn-primary" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Addpost;
