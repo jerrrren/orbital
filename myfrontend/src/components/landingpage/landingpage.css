@@ -1,0 +1,20 @@
+.Overall {
+  background-image: url(https://www.teahub.io/photos/full/327-3277193_fireworks-wallpaper-fireworks-wallpaper-lockscreen-non-copyright-pictures.jpg);
+  background-size: 1550px 750px;
+  height: 100vh;
+  font-size: 15px;
+  background-repeat: no-repeat;
+}
+
+.head {
+  text-align: center;
+  font-size: 70px;
+  padding: auto;
+  color: white;
+}
+
+.lead {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+}
