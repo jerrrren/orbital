@@ -41,6 +41,8 @@ const Login = () => {
         setErr(true);
         setErrMsg(err.response.data.error);
       });
+
+    localStorage.setItem("username", name);
   };
 
 

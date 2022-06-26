@@ -16,6 +16,7 @@ const ChatPage = () => {
   const wsURL = "ws://localhost:8080/ws?id=" + id;
   const messagesURL = "http://localhost:8080/messages/" + id;
   const [webServer, setWs] = useState();
+  const [messages, setmessages] = useState([]);
 
   const submitForm = (values) => {
     if (receiver) {
@@ -50,7 +51,7 @@ const ChatPage = () => {
     }
   };
 
-  const [messages, setmessages] = useState([]);
+  
   const [users, setusers] = useState([]);
   const initialValues = { body: "" };
 
@@ -64,16 +65,18 @@ const ChatPage = () => {
     ws.onmessage = (e) => {
       const message = JSON.parse(e.data);
       console.log("receivedmessage");
-      console.log(message);
+      console.log(messages);
       setmessages((messages) => [message, ...messages]);
     };
 
     axios
       .get(messagesURL)
       .then((res) => {
-        setmessages((messages) => {
-          setmessages(res.data);
-        });
+        if (res.data){
+        {
+          setmessages([...messages,...res.data]);
+        };}
+
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -84,7 +87,6 @@ const ChatPage = () => {
         setusers(res.data);
       })
       .catch((err) => console.log(err));
-
     return () => {
       ws.close();
     };

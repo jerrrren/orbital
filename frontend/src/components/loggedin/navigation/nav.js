@@ -15,8 +15,8 @@ const LoggedinNavbar = () => {
         axios.post("/api/logout")
             .then((resp) => 
                 console.log(resp.data)
-                
-                
+              
+  
             )
             .catch(err => console.log(err))
         userLogout();

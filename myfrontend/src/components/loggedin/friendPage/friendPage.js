@@ -13,13 +13,14 @@ const FriendPage = () => {
     const username = localStorage.getItem("username")
 
     useEffect(() => {
-        axios.post("/pairing/ifPaired", {
-            "Name": username
-        })
-            .then(resp => {
-                setPaired(resp.data.message)
-            })
-            .catch(err => console.log(err))
+        axios
+          .post("http://localhost:8080/pairing/ifPaired", {
+            Name: username,
+          })
+          .then((resp) => {
+            setPaired(resp.data.message);
+          })
+          .catch((err) => console.log(err));
     }, [])
 
     return (

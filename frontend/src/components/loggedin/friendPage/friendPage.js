@@ -9,37 +9,38 @@ import ChatPage from "../chatPage/chatPage";
 //page to be loaded when friend button on navbar is chosen
 //will either load the findPartner page, waiting page or the chat page
 const FriendPage = () => {
-    const [single, setSingle] = useState(false)
-    const [filled, setFilled] = useState(false)
-    const username = localStorage.getItem("username")
+  const [paired, setPaired] = useState(false);
+  const username = localStorage.getItem("username");
 
-    useEffect(() => {
-        axios.post("/pairing/checkInfo", {
-            "Name": username
-        })
-            .then(resp => {
-                setSingle(resp.data.single)
-                setFilled(resp.data.filled)
-            })
-            .catch(err => console.log(err))
-    }, [])
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/pairing/ifPaired", {
+        Name: username,
+      })
+      .then((resp) => {
+        setPaired(resp.data.message);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-    return (
+  return (
+    <div>
+      {paired ? (
+        <ChatPage />
+      ) : (
         <div>
-            {!single ? (<ChatPage />) : (<div>{filled ? (<WaitingPage />) : (<PairingPage />)}</div>)}
+          <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+            <div className="col-md-6 px-0">
+              <h1 className="display-4 font-italic">
+                You have yet to be paired, please go to the pair tab on the
+                navigation bar
+              </h1>
+            </div>
+          </div>
         </div>
+      )}
+    </div>
+  );
+};
 
-    )
-
-    // if (single && !filled) {
-    //     //return finding partner form page
-    //     return <Navigate to={`/pairing/fillDetails`} replace={true} />
-    // } else if (single && filled) {
-    //     //return waiting page 
-    //     return <Navigate to={`/pairing/waiting`} replace={true} />
-    // } else {
-    //     return <Navigate to={`/chat/${1}`} replace={true} />
-    // }
-}
-
-export default FriendPage
+export default FriendPage;
