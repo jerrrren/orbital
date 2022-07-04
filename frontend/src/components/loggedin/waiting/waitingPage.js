@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import ChatPage from "../chatPage/chatPage";
 import axios from "axios";
 
+
 //page to wait while trying to get more users for pairing
 const WaitingPage = () => {
     const [wait, setWait] = useState(true)

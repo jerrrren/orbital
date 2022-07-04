@@ -5,6 +5,7 @@ import { Formik, Form, Field } from "formik";
 import LoggedinNavbar from "../navigation/nav";
 import { Button, Flex, Input, Box } from "@chakra-ui/react";
 import useAuth from "../../../hooks/useAuth";
+import {url} from "../../../constants/url"
 
 import ChatMessages from "./chatMessages";
 
@@ -12,11 +13,13 @@ const ChatPage = () => {
   const [receiver, setreceiver] = useState(null);
   const id = useAuth((state) => state.uid);
 
-  const URL = "http://localhost:8080/user_names/" + id;
-  const wsURL = "ws://localhost:8080/ws?id=" + id;
-  const messagesURL = "http://localhost:8080/messages/" + id;
+  const URL = url.get_username + id;
+  const wsURL = url.get_ws + id;
+  const messagesURL = url.get_messages + id;
   const [webServer, setWs] = useState();
   const [messages, setmessages] = useState([]);
+  const [users, setusers] = useState([]);
+  const initialValues = { body: "" };
 
   const submitForm = (values) => {
     if (receiver) {
@@ -51,9 +54,6 @@ const ChatPage = () => {
     }
   };
 
-  
-  const [users, setusers] = useState([]);
-  const initialValues = { body: "" };
 
   useEffect(() => {
     const ws = new WebSocket(wsURL);

@@ -3,6 +3,8 @@ import axios from "axios";
 import Post from "./post";
 import LoggedinNavbar from "../navigation/nav";
 import useAuth from "../../../hooks/useAuth";
+import { url } from "../../../constants/url";
+
 
 import "./home.css";
 
@@ -13,7 +15,7 @@ const LoggedInHome = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/posts/getPosts")
+      .get(url.get_posts)
       .then((resp) => setPosts(resp.data))
       .catch((err) => console.log(err));
   }, []);

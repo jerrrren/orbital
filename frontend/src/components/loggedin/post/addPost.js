@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { url } from "../../../constants/url";
 
 import LoggedinNavbar from "../navigation/nav";
 
@@ -13,7 +14,7 @@ const Addpost = () => {
   const submit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/posts/createpost", {
+      .post(url.add_post, {
         Name: name,
         Field: field,
         Intro: intro,

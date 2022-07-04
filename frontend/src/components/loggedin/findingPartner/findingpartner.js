@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoggedinNavbar from "../navigation/nav";
 import axios from "axios";
 import "./findingPartner.css";
+import { url } from "../../../constants/url";
 import { isInteger } from "formik";
 import { AccordionDescendantsProvider } from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
@@ -19,13 +20,13 @@ const PairingPage = () => {
 
   useEffect(() => {
     axios
-      .post("/pairing/ifPaired", {
+      .post(url.if_paired, {
         Name: username,
       })
       .then((resp) => {
         setPaired(resp.data.message);
         setPartner(resp.data.partner);
-        console.log(resp.data)
+        console.log(resp.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -34,13 +35,13 @@ const PairingPage = () => {
     e.preventDefault();
     //adds info about the indicators and try to find a matching if possible
     axios
-      .post("http://localhost:8080/pairing/fillAndMatch", {
+      .post(url.fill_and_match, {
         Name: username,
         Commitment: parseInt(commitment),
         Location: location.toLowerCase(),
       })
       .then((resp) => {
-        console.log(resp.data)
+        console.log(resp.data);
         setPaired(resp.data.result);
         setPartner(resp.data.message);
         setPairingSuccess(resp.data.result);
@@ -56,8 +57,8 @@ const PairingPage = () => {
           <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
             <div className="col-md-6 px-0">
               <h1 className="display-4 font-italic">
-                You have already been paired with {partner}, please proceed to the friends page
-                to chat!
+                You have already been paired with {partner}, please proceed to
+                the friends page to chat!
               </h1>
             </div>
           </div>
