@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    uid		    SERIAL PRIMARY KEY,
+    uid		    SERIAL PRIMARY KEY ,
     name		TEXT,
     password	TEXT,
     token	TEXT,
@@ -11,8 +11,8 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS chats;
 CREATE TABLE chats (
     messageID SERIAL PRIMARY KEY,
-    user_id_1 INT, 
-    user_id_2 INT,
+    user_id_1 INTEGER REFERENCES users(uid) ON DELETE CASCADE,
+    user_id_2 INTEGER REFERENCES users(uid) ON DELETE CASCADE, 
     body TEXT,
     messageTime TEXT
 );

@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jun 25 13:55:33 2022
+# Make data base, printed on Mon Jul 04 10:39:38 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ USERPROFILE = C:\Users\cheej
 # environment
 LOCALAPPDATA = C:\Users\cheej\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-f3963676-b9af-4ba1-8332-c08854112ce5-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-e1125de7-0663-4960-9c3a-d586e2e35805-sock
 # environment
 VSCODE_CWD = C:\WINDOWS\System32
 # environment
@@ -41,7 +41,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_8704_KWHAGGQQYPJPGGPP
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_2428_FSGTQWPPUPUWCTYY
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -95,7 +95,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 8704
+VSCODE_PID = 2428
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -215,7 +215,8 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 # variable set hash-table stats:
 # Load=100/1024=10%, Rehash=0, Collisions=9/127=7%
 
-# Pattern-specific Variable Values
+# Pattern-specifi 
+c Variable Values
 
 # No pattern-specific variable values.
 
@@ -279,6 +280,6 @@ postgres:
 # strcache performance: lookups = 30 / hit rate = 20%
 # hash-table stats:
 # Load=24/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Sat Jun 25 13:55:33 2022
+# Finished Make data base on Mon Jul 04 10:39:38 2022
 
  
