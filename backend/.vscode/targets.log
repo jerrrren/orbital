@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 04 10:39:38 2022
+# Make data base, printed on Tue Jul 05 16:45:56 2022
 
 # Variables
 
@@ -23,9 +23,9 @@ USERPROFILE = C:\Users\cheej
 # environment
 LOCALAPPDATA = C:\Users\cheej\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-e1125de7-0663-4960-9c3a-d586e2e35805-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-332ef9df-ca4d-40b6-bcde-192ef71f9a8c-sock
 # environment
-VSCODE_CWD = C:\WINDOWS\System32
+VSCODE_CWD = C:\Users\cheej\AppData\Local\Programs\Microsoft VS Code
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
@@ -41,7 +41,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_2428_FSGTQWPPUPUWCTYY
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_30868_FZQTHPCLLHGBQAIC
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -95,7 +95,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2428
+VSCODE_PID = 30868
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -134,7 +134,8 @@ ZES_ENABLE_SYSMAN = 1
 COMPUTERNAME = DESKTOP-5U7S1OA
 # default
 MAKEFILES := 
-# automatic
+# automati 
+c
 ^F = $(notdir $^)
 # environment
 PROMPT = $P$G
@@ -215,8 +216,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 # variable set hash-table stats:
 # Load=100/1024=10%, Rehash=0, Collisions=9/127=7%
 
-# Pattern-specifi 
-c Variable Values
+# Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
@@ -277,9 +277,10 @@ postgres:
 # strcache buffers: 1 (0) / strings = 24 / storage = 177 B / avg = 7 B
 # current buf: size = 8174 B / used = 177 B / count = 24 / avg = 7 B
 
-# strcache performance: lookups = 30 / hit rate = 20%
+# strcache performance: lookups = 30  
+/ hit rate = 20%
 # hash-table stats:
 # Load=24/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Mon Jul 04 10:39:38 2022
+# Finished Make data base on Tue Jul 05 16:45:56 2022
 
  

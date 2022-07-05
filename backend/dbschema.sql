@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     uid		    SERIAL PRIMARY KEY ,
-    name		TEXT,
+    name		TEXT NOT NULL UNIQUE,
     password	TEXT,
     token	TEXT,
     refresh_token TEXT,
