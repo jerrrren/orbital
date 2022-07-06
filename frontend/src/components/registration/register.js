@@ -32,8 +32,9 @@ const Register = () => {
           .catch((err) => console.log(err));
       })
       .catch((err) => {
+        console.log(err.response.data.message)
         setErr(true);
-        setErrMsg(err.response.data.error);
+        setErrMsg(err.response.data.message);
       });
   };
 
@@ -45,7 +46,7 @@ const Register = () => {
     <div className="register">
       <Nav />
       {err ? (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           {errMsg}
         </div>
       ) : (
