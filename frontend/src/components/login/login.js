@@ -39,9 +39,9 @@ const Login = () => {
         },resp.data.uid);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
         setErr(true);
-        setErrMsg(err.response.data.error);
+        setErrMsg(err.response.data.message);
       });
 
     localStorage.setItem("username", name);
@@ -53,7 +53,7 @@ const Login = () => {
     <div className="login">
       <Nav />
       {err ? (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           {errMsg}
         </div>
       ) : (
