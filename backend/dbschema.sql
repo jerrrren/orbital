@@ -5,7 +5,9 @@ CREATE TABLE users (
     password	TEXT,
     token	TEXT,
     refresh_token TEXT,
-    user_type TEXT
+    user_type TEXT,
+    verified BOOLEAN,
+    email TEXT
 );
 
 DROP TABLE IF EXISTS chats;

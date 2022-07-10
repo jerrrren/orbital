@@ -26,7 +26,6 @@ func Authenticate() gin.HandlerFunc{
 		c.Set("name",claims.Name)
 		c.Set("user_type",claims.User_type)
 		c.Next()
-
 	}
 }
 
