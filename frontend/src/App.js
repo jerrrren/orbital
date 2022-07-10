@@ -18,6 +18,7 @@ import PairingPage from "./components/loggedin/findingPartner/findingpartner";
 
 import PublicRoute from './routes/PublicRoute'
 import PrivateRoute from "./routes/PrivateRoute";
+import VerifyEmail from './components/emailverification/checkEmail';
 
 
 function App() {
@@ -76,6 +77,9 @@ function App() {
                 <PairingPage />
             }
           />
+
+          <Route path="/verifyemail/:token" element ={<VerifyEmail/>}/>
+
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

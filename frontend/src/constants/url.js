@@ -11,5 +11,8 @@ export const url = {
   login: host + "/users/login",
   signup: host + "/users/signup",
   register_add: host + "/pairing/registerAdd",
+  get_verification_status: host + "/email/checkverified",
+  send_verification_email: host + "/email/sendverificationemail?id=",
+  verify_email: host + "/email/verifyemail",
 };
 

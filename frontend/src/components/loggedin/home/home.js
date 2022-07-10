@@ -10,7 +10,6 @@ import "./home.css";
 
 const LoggedInHome = () => {
   const [posts, setPosts] = useState([]);
-
   const uid = useAuth((state) => state.uid);
 
   useEffect(() => {
