@@ -1,3 +1,2 @@
 new commit
-
-email verification
+remember to change host for backend email function
