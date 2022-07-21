@@ -16,8 +16,6 @@ import (
 func main() {
 
 	wsServer := chat.NewWebSocketServer()
-	roomServer := chat.NewWebSocketServer()
-	go roomServer.Run()
 	go wsServer.Run()
 
 	router := gin.Default()
@@ -29,8 +27,7 @@ func main() {
 	pairing.PairingRoutes(router)
 
 	router.GET("/ws", chat.ServeWs(wsServer))
-	router.GET("/rws", chat.ServeWs(roomServer))
+	router.Run(":8080")
 
 	defer db.DB.Close()
-	router.Run(":8080")
 }

@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul 21 11:08:43 2022
+# Make data base, printed on Thu Jul 21 17:29:34 2022
 
 # Variables
 
@@ -39,7 +39,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_11012_PJCQCMHTTFWIGOPZ
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_13696_AWAMBKTHYGPCJHSI
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -87,7 +87,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 11012
+VSCODE_PID = 13696
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -119,8 +119,7 @@ MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python310\Scripts\;C:\Python310\;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Program Files\AdoptOpenJDK\jdk-11.0.9.101-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Program Files\MATLAB\R2021a\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\Go\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\MinGW\bin;;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\cheej\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\cheej\AppData\Local\Programs\Python\Python37\;C:\Users\cheej\AppData\Local\Microsoft\WindowsApps;C:\Users\cheej\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\cheej\AppData\Roaming\npm;C:\Users\cheej\go\bin;C:\msys64\ming 
-w64\bin;C:\Users\cheej\AppData\Roaming\TinyTeX\bin\win32;C:\Program Files\heroku\bin;C:\ProgramData\cheej\GitHubDesktop\bin;C:\Users\cheej\AppData\Local\GitHubDesktop\bin
+PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python310\Scripts\;C:\Python310\;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Program Files\AdoptOpenJDK\jdk-11.0.9.101-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Program Files\MATLAB\R2021a\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\Go\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\MinGW\bin;;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\cheej\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\cheej\AppData\Local\Programs\Python\Python37\;C:\Users\cheej\AppData\Local\Microsoft\WindowsApps;C:\Users\cheej\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\cheej\AppData\Roaming\npm;C:\Users\cheej\go\bin;C:\msys64\mingw64\bin;C:\Users\cheej\AppData\Roaming\TinyTeX\bin\win32;C:\Program Files\heroku\bin;C:\ProgramData\cheej\GitHubDesktop\bin;C:\Users\cheej\AppData\Local\GitHubDesktop\bin
 # environment
 ZES_ENABLE_SYSMAN = 1
 # environment
@@ -212,9 +211,9 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/cheej/Desktop/Orbital/orbital/backend, mtime 1657512429): 20 files, no impossibilities.
+# . (key c:/Users/cheej/Desktop/Orbital/orbital/backend, mtime 1658395717): 21 files, no impossibilities.
 
-# 20 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -260,17 +259,16 @@ postgres:
 # Load=6/1024=1%, Rehash=0, Collisions=0/16=0%
 # VPATH Search Paths
 
-# No 'vpath' searc 
-h paths.
+# No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 25 / storage = 183 B / avg = 7 B
-# current buf: size = 8174 B / used = 183 B / count = 25 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 196 B / avg = 7 B
+# current buf: size = 8174 B / used = 196 B / count = 26 / avg = 7 B
 
-# strcache performance: lookups = 31 / hit rate = 19%
+# strcache performance: lookups = 32 / hit rate = 18%
 # hash-table stats:
-# Load=25/8192=0%, Rehash=0, Collisions=0/31=0%
-# Finished Make data base on Thu Jul 21 11:08:43 2022
+# Load=26/8192=0%, Rehash=0, Collisions=0/32=0%
+# Finished Make data base on Thu Jul 21 17:29:34 2022
 
  
