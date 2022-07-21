@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     uid		    SERIAL PRIMARY KEY ,
@@ -39,8 +40,9 @@ CREATE TABLE singleusers(
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     commitment INTEGER,
+    year INTEGER,
     location TEXT,
-    filledinfo BOOLEAN NOT NULL DEFAULT false
+    faculty TEXT,
 );
 
 DROP TABLE IF EXISTS pairedusers;
