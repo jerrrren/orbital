@@ -4,6 +4,7 @@ import (
 	"github.com/bojie/orbital/backend/auth"
 	"github.com/bojie/orbital/backend/chat"
 	"github.com/bojie/orbital/backend/db"
+	"github.com/bojie/orbital/backend/email"
 	"github.com/bojie/orbital/backend/pairing"
 	"github.com/bojie/orbital/backend/routerMiddleware"
 	"github.com/bojie/orbital/backend/user"
@@ -15,6 +16,8 @@ import (
 func main() {
 
 	wsServer := chat.NewWebSocketServer()
+	roomServer := chat.NewWebSocketServer()
+	go roomServer.Run()
 	go wsServer.Run()
 
 	router := gin.Default()
@@ -22,9 +25,11 @@ func main() {
 	router.Use(routerMiddleware.CORSMiddleware())
 	auth.AuthRoutes(router)
 	user.UserRoutes(router)
+	email.EmailRoutes(router)
 	pairing.PairingRoutes(router)
 
 	router.GET("/ws", chat.ServeWs(wsServer))
+	router.GET("/rws", chat.ServeWs(roomServer))
 
 	defer db.DB.Close()
 	router.Run(":8080")

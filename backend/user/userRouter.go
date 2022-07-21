@@ -15,4 +15,5 @@ func UserRoutes(incomingRoutes *gin.Engine){
 	incomingRoutes.GET("/posts/getPosts", posts.GetPosts)
 	incomingRoutes.GET("/posts/getPosts/:id", posts.GetPostsById)
 	incomingRoutes.POST("/posts/createpost",posts.CreatePost())
+	incomingRoutes.PATCH("/posts/update_participant/:id",posts.UpdateParticipants())
 }				

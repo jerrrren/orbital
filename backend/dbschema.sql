@@ -5,7 +5,9 @@ CREATE TABLE users (
     password	TEXT,
     token	TEXT,
     refresh_token TEXT,
-    user_type TEXT
+    user_type TEXT,
+    verified BOOLEAN,
+    email TEXT
 );
 
 DROP TABLE IF EXISTS chats;
@@ -18,16 +20,18 @@ CREATE TABLE chats (
 );
 
 
+
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
     field TEXT NOT NULL,
-    name TEXT NOT NULL,
+    uid INTEGER REFERENCES users(uid) ON DELETE CASCADE,
     intro TEXT NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     modified_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    participants TEXT[]
+    participants INTEGER[],
+    num_participants INTEGER
 );
 
 DROP TABLE IF EXISTS singleusers;

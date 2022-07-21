@@ -14,6 +14,7 @@ import "./login.css";
 const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [email,setEmail] = useState("")
   const [id, setId] = useState(0);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -24,6 +25,7 @@ const Login = () => {
 
   const submit = (e) => {
     e.preventDefault();
+
     axios
       .post(url.login, {
         username: name,
@@ -62,7 +64,6 @@ const Login = () => {
       <main className="form-signin w-100 m-auto">
         <form onSubmit={(e) => submit(e)}>
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
           <div className="form-floating">
             <input
               type="text"

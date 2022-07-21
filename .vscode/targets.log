@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jun 26 23:50:37 2022
+# Make data base, printed on Thu Jul 21 11:08:56 2022
 
 # Variables
 
@@ -22,8 +22,6 @@ LC_ALL = C
 USERPROFILE = C:\Users\cheej
 # environment
 LOCALAPPDATA = C:\Users\cheej\AppData\Local
-# environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-fbfe5c64-1327-4ae7-83a5-8caee44778c9-sock
 # environment
 VSCODE_CWD = C:\Users\cheej\AppData\Local\Programs\Microsoft VS Code
 # environment
@@ -41,7 +39,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_2704_YHJVQMBKFIRRQBWV
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_11012_PJCQCMHTTFWIGOPZ
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -50,12 +48,10 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 %D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
 # automatic
 ^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
-# environment
-VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\cheej\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = C:\Users\cheej\AppData\Roaming\Code\CachedData\3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
 LANG = C
 # default
@@ -72,8 +68,6 @@ MAKEFLAGS = pqrR
 ONEDRIVE = C:\Users\cheej\OneDrive
 # makefile
 CURDIR := c:/Users/cheej/Desktop/Orbital/orbital
-# environment
-VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
@@ -93,9 +87,7 @@ MAKEFILE_LIST :=
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_VERBOSE_LOGGING = true
-# environment
-VSCODE_PID = 2704
+VSCODE_PID = 11012
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -143,8 +135,6 @@ CHOCOLATEYLASTPATHUPDATE = 132794275482942044
 # environment
 LOGONSERVER = \\DESKTOP-5U7S1OA
 # environment
-VSCODE_LOG_NATIVE = false
-# environment
 USERNAME = cheej
 # environment
 COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
@@ -165,7 +155,7 @@ GNUMAKEFLAGS :=
 # environment
 OS = Windows_NT
 # environment
-__COMPAT_LAYER = RunAsAdmin Installer
+__COMPAT_LAYER = RunAsAdmin
 # makefile
 .DEFAULT_GOAL := 
 # default
@@ -195,7 +185,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 TEMP = C:\Users\cheej\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\e79256b1ce000de844a5805c41116187-1.68.1-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\e79256b1ce000de844a5805c41116187-1.69.2-main-sock
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # default
@@ -213,7 +203,7 @@ PROCESSOR_REVISION = a502
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 # variable set hash-table stats:
-# Load=100/1024=10%, Rehash=0, Collisions=9/124=7%
+# Load=95/1024=9%, Rehash=0, Collisions=8/119=7%
 
 # Pattern-specific Variable Values
 
@@ -221,7 +211,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/cheej/Desktop/Orbital/orbital, mtime 1655711094): 9 files, no impossibilities.
+# . (key c:/Users/cheej/Desktop/Orbital/orbital, mtime 1656258679): 9 files, no impossibilities.
 
 # 9 files, no impossibilities in 1 directories.
 
@@ -286,6 +276,6 @@ GNUmakefile:
 # strcache performance: lookups = 19 / hit rate = 15%
 # hash-table stats:
 # Load=16/8192=0%, Rehash=0, Collisions=0/19=0%
-# Finished Make data base on Sun Jun 26 23:50:37 2022
+# Finished Make data base on Thu Jul 21 11:08:56 2022
 
  
