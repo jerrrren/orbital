@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import Nav from "../../components/navigation/navbar";
 import useAuth from "../../hooks/useAuth";
+import { url } from "../../constants/url";
+
 
 import "./login.css";
 
@@ -23,12 +25,11 @@ const Login = () => {
   const submit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/users/login", {
+      .post(url.login, {
         username: name,
         password: password,
       })
       .then((resp) => {
-        localStorage.setItem("username", name)
         console.log(resp.data);
         setId(resp.data.uid);
         console.log(id)
@@ -42,6 +43,8 @@ const Login = () => {
         setErr(true);
         setErrMsg(err.response.data.error);
       });
+
+    sessionStorage.setItem("username", name);
   };
 
 
