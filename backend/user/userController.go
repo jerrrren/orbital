@@ -37,6 +37,7 @@ func GetUserNames() gin.HandlerFunc {
 
 			userNames = append(userNames, userName)
 		}
+		
 		c.IndentedJSON(http.StatusOK, userNames)
 		defer rows.Close()
 

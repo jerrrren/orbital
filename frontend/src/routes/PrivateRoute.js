@@ -35,6 +35,10 @@ const PrivateRoute = (props) => {
       });
   }, [id]);
 
+  if(!isAuth || !hasRequiredRole){
+    return <Navigate to={Routes.login} state={{ from: location }} />;
+  }
+
   if (isVerified == null){
     return null
   }
@@ -43,11 +47,11 @@ const PrivateRoute = (props) => {
     return props.children;
   }
 
-  if (isAuth && hasRequiredRole) {
+
+  if (isAuth && hasRequiredRole && !isVerified) {
     return <UnVerifiedEmail></UnVerifiedEmail>;
   }
 
-  return <Navigate to={Routes.login} state={{ from: location }} />;
 };
 
 export default PrivateRoute;

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 
 import LoggedinNavbar from "../navigation/nav";
-import { Button, Flex, Input, Box } from "@chakra-ui/react";
+import { Button, Flex, Heading, Box, Textarea } from "@chakra-ui/react";
+
 import useAuth from "../../../hooks/useAuth";
-import {url} from "../../../constants/url"
+import { url } from "../../../constants/url";
 
 import ChatMessages from "./chatMessages";
 
 const ChatPage = () => {
   const [receiver, setreceiver] = useState(null);
+
+  const { userId } = useParams();
+
   const id = useAuth((state) => state.uid);
 
   const URL = url.get_username + id;
@@ -21,7 +27,7 @@ const ChatPage = () => {
   const [users, setusers] = useState([]);
   const initialValues = { body: "" };
 
-  const submitForm = (values) => {
+  const submitForm = (values, { resetForm }) => {
     if (receiver) {
       const timestamp = new Intl.DateTimeFormat([], {
         year: "numeric",
@@ -43,7 +49,7 @@ const ChatPage = () => {
       setmessages((messages) => [message, ...messages]);
 
       webServer.send(JSON.stringify(message));
-      console.log(message);
+      resetForm({ value: "" });
 
       /*axios
         .post("http://localhost:8080/posts", {
@@ -53,7 +59,6 @@ const ChatPage = () => {
         .catch((err) => console.log(err));*/
     }
   };
-
 
   useEffect(() => {
     const ws = new WebSocket(wsURL);
@@ -72,10 +77,12 @@ const ChatPage = () => {
     axios
       .get(messagesURL)
       .then((res) => {
-        if (res.data){
-        {
-          setmessages([...messages,...res.data]);
-        };}
+        if (res.data) {
+          {
+            console.log(res.data);
+            setmessages([...messages, ...res.data]);
+          }
+        }
 
         console.log(res);
       })
@@ -85,8 +92,19 @@ const ChatPage = () => {
       .get(URL)
       .then((res) => {
         setusers(res.data);
+        if (userId && userId!=id) {
+          console.log(res.data)
+          for (const variable of res.data) {
+            if (userId == variable.uid) {
+              setreceiver(variable);
+              console.log(receiver)
+            }
+          }
+        }
       })
+
       .catch((err) => console.log(err));
+
     return () => {
       ws.close();
     };
@@ -96,13 +114,14 @@ const ChatPage = () => {
     ?.filter((name) => name.uid != id)
     .map((user) => (
       <Button
-        width="15vw"
+        width="14.1vw"
         height="10vh"
         minHeight="10vh"
         key={user}
         onClick={() => {
           setreceiver(user);
         }}
+        variant={receiver && user.uid == receiver.uid ? "toggled" : "outline"}
       >
         {user.username}
       </Button>
@@ -114,73 +133,78 @@ const ChatPage = () => {
       style={{
         height: "100vh",
         width: "100vw",
-        maxHeight: "100vh",
       }}
     >
       <LoggedinNavbar />
-      <h1>This is the chatPage</h1>
       <Flex style={{ flexGrow: 4, position: "relative", maxHeight: "100%" }}>
         <Flex
           direction="column"
           style={{
             overflowY: "scroll",
             position: "relative",
-            maxHeight: "89vh",
+            height: "94vh",
             width: "15vw",
-            minWidth: "15vw",
-            minHeight: "89vh",
           }}
         >
           {tabs}
         </Flex>
-        <Flex
+        <Box
           style={{
-            flexDirection: "column",
-            borderRadius: "25px",
-            background: "#ffb44c",
-            flexGrow: 3,
-            position: "relative",
-            maxHeight: "89vh",
-            width: "80vw",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            gap: "3vh",
-            marginRight: "0.5vw",
+            width: "85vw",
+            height: "91.5vh",
           }}
         >
-          {receiver && (
-            <ChatMessages
-              messages={messages}
-              receiver={receiver}
-            ></ChatMessages>
-          )}
-          <Box margin="2vw">
-            <Formik onSubmit={submitForm} initialValues={initialValues}>
-              <Form>
-                <Field name="body">
-                  {({
-                    field, // { name, value, onChange, onBlur }
-                    form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                    meta,
-                  }) => (
-                    <Input
-                      width="75vw"
-                      requiredtype="text"
-                      id="body"
-                      name="body"
-                      marginRight="1vw"
-                      {...field}
-                    ></Input>
-                  )}
-                </Field>
+          <Heading padding="3" style={{ fontWeight: "normal" }}>
+            {receiver ? receiver.username : "Please select a user to chat with"}
+          </Heading>
+          <Flex
+            padding="1"
+            style={{
+              flexDirection: "column",
+              background: "#ffb44c",
+              flexGrow: 3,
+              position: "relative",
+              height: "87vh",
+              width: "85vw",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              marginRight: "0.5vw",
+            }}
+          >
+            {receiver && (
+              <ChatMessages
+                messages={messages}
+                receiver={receiver}
+              ></ChatMessages>
+            )}
+            <Box margin="1vw">
+              <Formik onSubmit={submitForm} initialValues={initialValues}>
+                <Form>
+                  <Field name="body">
+                    {({
+                      field, // { name, value, onChange, onBlur }
+                      form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                      meta,
+                    }) => (
+                      <Textarea
+                        width="75vw"
+                        requiredtype="text"
+                        id="body"
+                        name="body"
+                        marginRight="1vw"
+                        {...field}
+                      ></Textarea>
+                    )}
+                  </Field>
 
-                <Button marginBottom="1vh" type="submit">
-                  Send
-                </Button>
-              </Form>
-            </Formik>
-          </Box>
-        </Flex>
+                  <Button marginBottom="1vh" type="submit">
+                    Send
+                  </Button>
+                </Form>
+              </Formik>
+            </Box>
+          </Flex>
+        </Box>
       </Flex>
     </Flex>
   );

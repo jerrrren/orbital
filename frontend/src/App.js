@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import Login from './components/login/login'
 import Logout from './components/login/logout'
@@ -23,8 +23,20 @@ import VerifyEmail from './components/emailverification/checkEmail';
 
 function App() {
 
+  const theme = extendTheme({
+    components: {
+      Button: {
+        variants: {
+          toggled: {
+            background: "#ffb44c",
+          },
+        },
+      },
+    },
+  });
+
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route
@@ -60,9 +72,18 @@ function App() {
           <Route path="/logout" element={<Logout />} />
 
           <Route
+            path="/chat/:userId"
+            element={<PrivateRoute children={<ChatPage />} />}
+          />
+
+          <Route
             path="/chat"
             element={<PrivateRoute children={<ChatPage />} />}
           />
+
+
+          <Route path = "/post/content/:pid" element={<PrivateRoute children={<Contents  />} />}/>
+
           <Route
             path="/post/add"
             element={
@@ -71,15 +92,9 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/pairing/fillDetails"
-            element={
-                <PairingPage />
-            }
-          />
+          <Route path="/pairing/fillDetails" element={<PairingPage />} />
 
-          <Route path="/verifyemail/:token" element ={<VerifyEmail/>}/>
-
+          <Route path="/verifyemail/:token" element={<VerifyEmail />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

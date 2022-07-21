@@ -16,9 +16,12 @@ const LoggedinNavbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4 padding:0">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark  padding:0 " >
       <div className="container-fluid">
-        <Link to={`/home`} className="navbar-brand">
+        <Link
+          to={`/home`}
+          className="navbar-brand"
+        >
           IntroNus
         </Link>
         <div>
