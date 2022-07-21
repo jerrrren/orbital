@@ -42,7 +42,7 @@ CREATE TABLE singleusers(
     commitment INTEGER,
     year INTEGER,
     location TEXT,
-    faculty TEXT,
+    faculty TEXT
 );
 
 DROP TABLE IF EXISTS pairedusers;
