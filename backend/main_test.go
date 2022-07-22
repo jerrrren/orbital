@@ -175,6 +175,12 @@ func checkResponseCode(t *testing.T, expected, actual int) {
 	}
 }
 
+
+
+
+
+
+
 func TestCreatePost(t *testing.T) {
 	wsServer := chat.NewWebSocketServer()
 	go wsServer.Run()
@@ -188,6 +194,8 @@ func TestCreatePost(t *testing.T) {
 
 	router.GET("/ws", chat.ServeWs(wsServer))
 	router.Run(":8080")
+
+	db.DB.Exec("TRUNCATE TABLE posts RESTART IDENTITY")
 
 	var jsonStr = []byte(`{"UID": 1,
     "Field": "This is the title",
@@ -212,8 +220,7 @@ func TestCreatePost(t *testing.T) {
 
 }
 
-
-func TestUpdatePost(t *testing.T) {
+func TestGetPosts(t *testing.T) {
 	wsServer := chat.NewWebSocketServer()
 	go wsServer.Run()
 
@@ -226,6 +233,93 @@ func TestUpdatePost(t *testing.T) {
 
 	router.GET("/ws", chat.ServeWs(wsServer))
 	router.Run(":8080")
+
+	var jsonStr = []byte(`{}`)
+
+	req, err := http.NewRequest(http.MethodGet, "/posts/getPosts", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatalf("Couldn't create request: %v\n", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	w := httptest.NewRecorder()
+
+	router.ServeHTTP(w, req)
+
+	res := w.Result()
+	defer res.Body.Close()
+	checkResponseCode(t, http.StatusOK, w.Code)
+
+	expected := `[{"ID":1,"Field":"This is the title","UID":1,"Intro":"This is the intro","Content":"This is the content","Name":"usertest1","CreatedAt":"0001-01-01T00:00:00Z","ModifiedAt":"0001-01-01T00:00:00Z","NumParticipants":0,"Participants":[],"ParticipantsUsername":null}]`
+
+	if w.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			w.Body.String(), expected)
+	}
+
+	fmt.Println(w.Body)
+	defer db.DB.Close()
+
+}
+
+func TestGetPostById(t *testing.T) {
+	wsServer := chat.NewWebSocketServer()
+	go wsServer.Run()
+
+	router := gin.Default()
+
+	router.Use(routerMiddleware.CORSMiddleware())
+	auth.AuthRoutes(router)
+	user.UserRoutes(router)
+	email.EmailRoutes(router)
+
+	router.GET("/ws", chat.ServeWs(wsServer))
+	router.Run(":8080")
+
+	var jsonStr = []byte(`{}`)
+
+	req, err := http.NewRequest(http.MethodGet, "/posts/getPosts/1", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatalf("Couldn't create request: %v\n", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	w := httptest.NewRecorder()
+
+	router.ServeHTTP(w, req)
+
+	res := w.Result()
+	defer res.Body.Close()
+	checkResponseCode(t, http.StatusOK, w.Code)
+
+	expected := `{"ID":1,"Field":"This is the title","UID":1,"Intro":"This is the intro","Content":"This is the content","Name":"usertest1","CreatedAt":"0001-01-01T00:00:00Z","ModifiedAt":"0001-01-01T00:00:00Z","NumParticipants":1,"Participants":[],"ParticipantsUsername":null}`
+
+	if w.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			w.Body.String(), expected)
+	}
+
+	fmt.Println(w.Body)
+	defer db.DB.Close()
+}
+
+
+func TestUpdateParticipants(t *testing.T) {
+	wsServer := chat.NewWebSocketServer()
+	go wsServer.Run()
+
+	router := gin.Default()
+
+	router.Use(routerMiddleware.CORSMiddleware())
+	auth.AuthRoutes(router)
+	user.UserRoutes(router)
+	email.EmailRoutes(router)
+
+	router.GET("/ws", chat.ServeWs(wsServer))
+	router.Run(":8080")
+
+	db.DB.Exec("TRUNCATE TABLE posts RESTART IDENTITY")
+
 
 	var jsonStr = []byte(`{"UID": 1,
     "Field": "This is the title",
@@ -243,9 +337,44 @@ func TestUpdatePost(t *testing.T) {
 
 	router.ServeHTTP(w, req)
 
+	jsonStr = []byte(`{"UID": 2}`)
+
+
+    req, err = http.NewRequest(http.MethodPatch, "/posts/update_participant/1", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatalf("Couldn't create request: %v\n", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	w = httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
 	checkResponseCode(t, http.StatusOK, w.Code)
+
+	req, err = http.NewRequest(http.MethodGet, "/posts/getPosts/1", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatalf("Couldn't create request: %v\n", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	w = httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	res := w.Result()
+
+	defer res.Body.Close()
+
+	checkResponseCode(t, http.StatusOK, w.Code)
+
+
+
+	expected := `{"ID":1,"Field":"This is the title","UID":1,"Intro":"This is the intro","Content":"This is the content","Name":"usertest1","CreatedAt":"0001-01-01T00:00:00Z","ModifiedAt":"0001-01-01T00:00:00Z","NumParticipants":1,"Participants":[2],"ParticipantsUsername":[{"uid":2,"username":"usertest2"}]}`
+
+	if w.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			w.Body.String(), expected)
+	}
 
 	fmt.Println(w.Body)
 	defer db.DB.Close()
-
 }
