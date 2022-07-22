@@ -19,8 +19,6 @@ CREATE TABLE chats (
     messageTime TEXT
 );
 
-
-
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
@@ -33,6 +31,7 @@ CREATE TABLE posts(
     participants INTEGER[],
     num_participants INTEGER
 );
+
 
 DROP TABLE IF EXISTS singleusers;
 CREATE TABLE singleusers(
@@ -49,3 +48,4 @@ CREATE TABLE pairedusers(
     name TEXT NOT NULL UNIQUE,
     partner TEXT NOT NULL UNIQUE
 );
+

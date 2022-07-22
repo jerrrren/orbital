@@ -59,7 +59,7 @@ func CreatePost() gin.HandlerFunc {
 
 func getPosts() ([]Post, error) {
 	var posts []Post
-	rows, err := db.DB.Query("SELECT posts.id,posts.field,posts.uid,posts.intro,posts.content,posts.created_at,posts.modified_at,posts.participants,users.name FROM posts JOIN users ON users.uid = posts.uid")
+	rows, err := db.DB.Query("SELECT posts.id,posts.field,posts.uid,posts.intro,posts.content,posts.participants,users.name FROM posts JOIN users ON users.uid = posts.uid")
 	if err != nil {
 		return nil, errors.New("There is no posts in database")
 	}
@@ -67,7 +67,7 @@ func getPosts() ([]Post, error) {
 
 	for rows.Next() {
 		var post Post
-		err := rows.Scan(&post.ID, &post.Field, &post.UID, &post.Intro, &post.Content, &post.CreatedAt, &post.ModifiedAt, &post.Participants, &post.Name)
+		err := rows.Scan(&post.ID, &post.Field, &post.UID, &post.Intro, &post.Content, &post.Participants, &post.Name)
 		if err != nil {
 			return nil, errors.New("error is scanning and assigning values from the posts")
 		}
@@ -78,9 +78,9 @@ func getPosts() ([]Post, error) {
 
 func getPostById(id int) (*Post, error) {
 	post := new(Post)
-	row := db.DB.QueryRow("SELECT posts.id,posts.field,posts.uid,posts.intro,posts.content,posts.created_at,posts.modified_at,posts.participants,users.name,posts.num_participants FROM posts JOIN users ON users.uid = posts.uid WHERE posts.id = $1", id)
+	row := db.DB.QueryRow("SELECT posts.id,posts.field,posts.uid,posts.intro,posts.content,posts.participants,users.name,posts.num_participants FROM posts JOIN users ON users.uid = posts.uid WHERE posts.id = $1", id)
 
-	err := row.Scan(&post.ID, &post.Field, &post.UID, &post.Intro, &post.Content, &post.CreatedAt, &post.ModifiedAt, &post.Participants, &post.Name,&post.NumParticipants)
+	err := row.Scan(&post.ID, &post.Field, &post.UID, &post.Intro, &post.Content, &post.Participants, &post.Name,&post.NumParticipants)
 
 	if err != nil {
 		fmt.Println(err)
@@ -147,6 +147,11 @@ func UpdateParticipants() gin.HandlerFunc {
 
 		if err := c.BindJSON(&addedUser); err != nil {
 			fmt.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		if(addedUser.ID == 0) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
