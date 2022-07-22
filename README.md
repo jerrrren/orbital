@@ -1,7 +1,7 @@
 The website is hosted on heroku, visit it using the link:
 
 ```
-https://intronus-frontend.herokuapp.com/
+https://intronusfrontend.herokuapp.com/
 ```
 
 To use the webapp, first register by clicking Register. Then you can login with your details. 
