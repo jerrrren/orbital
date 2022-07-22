@@ -11,8 +11,8 @@ const useAuth = create((set) => ({
   userLogin: (token, uid) => {
     saveToken(token, ROLE.User, uid);
     session.removeItem(SessionStorageKey.sessionTimedOut);
-    set({ isAuth: ROLE.User });
-    set({ uid: uid });
+    set({ isAuth: getAuth() });
+    set({ uid: getUid() });
   },
 
   logout: () => {

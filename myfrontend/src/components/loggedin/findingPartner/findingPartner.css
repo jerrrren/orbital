@@ -10,16 +10,3 @@
   width: 95%;
   font-size: 30px;
 }
-
-.form-floating {
-  margin-bottom: 10px;
-}
-
-.flex {
-  display: flex;
-  flex-direction: row;
-}
-
-.checkbox-inline {
-  padding-right: 20px;
-}

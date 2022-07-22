@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import LoggedinNavbar from "../navigation/nav";
 import PairingPage from "../findingPartner/findingpartner";
 import axios from "axios";
+import WaitingPage from "../waiting/waitingPage";
 import ChatPage from "../chatPage/chatPage";
 import { url } from "../../../constants/url";
 
@@ -31,7 +32,7 @@ const FriendPage = () => {
       ) : (
         <div>
           <LoggedinNavbar />
-          <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+          <div className="jumbotron p-3 p-md-5 text-white bg-dark">
             <div className="col-md-6 px-0">
               <h1 className="display-4 font-italic">
                 You have yet to be paired, please go to the pair tab on the

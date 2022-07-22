@@ -14,6 +14,7 @@ import "./login.css";
 const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("")
   const [id, setId] = useState(0);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -24,6 +25,7 @@ const Login = () => {
 
   const submit = (e) => {
     e.preventDefault();
+
     axios
       .post(url.login, {
         username: name,
@@ -39,9 +41,9 @@ const Login = () => {
         }, resp.data.uid);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
         setErr(true);
-        setErrMsg(err.response.data.error);
+        setErrMsg(err.response.data.message);
       });
 
     sessionStorage.setItem("username", name);
@@ -53,7 +55,7 @@ const Login = () => {
     <div className="login">
       <Nav />
       {err ? (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           {errMsg}
         </div>
       ) : (
@@ -62,7 +64,6 @@ const Login = () => {
       <main className="form-signin w-100 m-auto">
         <form onSubmit={(e) => submit(e)}>
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
           <div className="form-floating">
             <input
               type="text"

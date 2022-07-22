@@ -100,7 +100,7 @@ const PairingPage = () => {
       {paired ? (
         <div>
           <LoggedinNavbar />
-          <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+          <div className="jumbotron p-3 p-md-5 text-white bg-dark">
             <div className="col-md-6 px-0">
               <h1 className="display-4 font-italic">
                 You have already been paired with {partner}, please proceed to
@@ -122,7 +122,7 @@ const PairingPage = () => {
                 </div>
               </div>
             )}
-            <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+            <div className="jumbotron p-3 p-md-5 text-white bg-dark">
               <div className="col-md-6 px-0">
                 <h1 className="display-4 font-italic">
                   Welcome to the pairing page!
