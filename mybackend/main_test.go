@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	_ "encoding/json"
+	"encoding/json"
 	_"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -82,7 +82,20 @@ func TestDuplicateRegister(t * testing.T) {
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
-	checkResponseCode(t, http.StatusBadRequest, w.Code)
+	if w.Code != http.StatusBadRequest {
+		t.Error("Wrong code for duplicate register")
+	}
+	type Response struct {
+		Message string `json:"message"`
+	}
+	var result Response
+	err = json.Unmarshal(w.Body.Bytes(), &result)
+	if err != nil {
+		t.Fatal("Error in unmarshalling response body duplicate register")
+	}
+	if result.Message != "This username is already in use, please choose another one" {
+		t.Error("Incorrect response body for register duplicate")
+	}
 	db.DB.Exec("delete from users where name='a'")
 }
 
@@ -142,7 +155,20 @@ func TestLoginWrongPassword(t *testing.T) {
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 
-	checkResponseCode(t, http.StatusBadRequest, w.Code)
+	if w.Code != http.StatusBadRequest {
+		t.Error("Wrong code for incorrect login")
+	}
+	type Response struct {
+		Message string `json:"message"`
+	}
+	var result Response	
+	err = json.Unmarshal(w.Body.Bytes(), &result)
+	if (err != nil) {
+		t.Fatal("Could not unmarshall response body")
+	}
+	if (result.Message != "password or username incorrect") {
+		t.Error("Wrong body response for incorrect login")
+	}
 	db.DB.Exec("delete from users where name='a'")
 }
 
