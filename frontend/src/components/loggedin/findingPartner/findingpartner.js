@@ -24,6 +24,7 @@ const PairingPage = () => {
   const [faculty, setFaculty] = useState("")
   const [sameFaculty, setSameFaculty] = useState(false)
   const [errMsg, setErrMsg] = useState("")
+  const [redirect, setRedirect] = useState(false)
   const username = sessionStorage.getItem("username");
 
   useEffect(() => {
@@ -82,18 +83,27 @@ const PairingPage = () => {
           SameFaculty: sameFaculty,
         })
         .then((resp) => {
-          console.log(resp.data);
+          console.log(resp);
           setPaired(resp.data.result);
           setPartner(resp.data.message);
           setPairingSuccess(resp.data.result);
           if (!resp.data.result) {
             setErrMsg("Not enough users to pair you, please try again later")
           }
+          if (resp.data.result) {
+            setRedirect(true)
+            sessionStorage.setItem("partnerID", resp.data.partnerID)
+          }
         })
         .catch((err) => console.log(err));
     }
 
   };
+
+  if (redirect) {
+    var temp = "/chat/" + sessionStorage.getItem("partnerID")
+    return <Navigate to={temp} replace={true} />;
+  }
 
   return (
     <div>
