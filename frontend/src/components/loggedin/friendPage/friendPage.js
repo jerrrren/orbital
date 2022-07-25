@@ -21,6 +21,7 @@ const FriendPage = () => {
       })
       .then((resp) => {
         setPaired(resp.data.message);
+        sessionStorage.setItem("partnerID", resp.data.partnerID)
       })
       .catch((err) => console.log(err));
   }, []);
