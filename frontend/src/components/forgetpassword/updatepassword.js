@@ -1,54 +1,53 @@
 import axios from "axios";
 import React from "react";
-import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import {  useParams } from "react-router-dom";
 import Nav from "../../components/navigation/navbar";
-import useAuth from "../../hooks/useAuth";
 import { url } from "../../constants/url";
-import { Link } from "@chakra-ui/react";
 
 import "./login.css";
 
-
-
-const Login = () => {
-  const [name, setName] = useState("");
+const UpdatePassword = () => {
   const [password, setPassword] = useState("");
-  const [id, setId] = useState(0);
+  const [confirmPassword, setconfirmPassword] = useState("");
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  
-  
-  const userLogin = useAuth((state) => state.userLogin);
+  const { token } = useParams();
 
+  const [passwordReseted, setPasswordReseted] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
-
+    if (password != confirmPassword) {
+      setErrMsg("Password not the same as Confirm Password");
+      setErr(true);
+      return;
+    }
     axios
-      .post(url.login, {
-        username: name,
+      .post(url.updatePassword, {
         password: password,
+        token: token,
       })
       .then((resp) => {
-        console.log(resp.data);
-        setId(resp.data.uid);
-        console.log(id)
-        userLogin({
-          refresh: resp.data.refresh,
-          access: resp.data.access,
-        },resp.data.uid);
+        setPasswordReseted(true);
       })
       .catch((err) => {
         console.log(err.response.data);
         setErr(true);
         setErrMsg(err.response.data.message);
       });
-
-    localStorage.setItem("username", name);
   };
 
-
+  if (passwordReseted) {
+    return (
+      <div className="login" style={{ height: "100vh" }}>
+        <Nav />
+        <h1 className="h3 mb-3 fw-normal">
+          Your password has been reset, please login again
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <div className="login" style={{ height: "100vh" }}>
@@ -62,21 +61,9 @@ const Login = () => {
       )}
       <main className="form-signin w-100 m-auto">
         <form onSubmit={(e) => submit(e)}>
-          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
           <div className="form-floating">
             <input
               type="text"
-              className="form-control"
-              placeholder="Name"
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-            <label htmlFor="floatingInput">Username</label>
-          </div>
-
-          <div className="form-floating">
-            <input
-              type="password"
               className="form-control"
               placeholder="Password"
               required
@@ -85,14 +72,24 @@ const Login = () => {
             <label htmlFor="floatingPassword">Password</label>
           </div>
 
+          <div className="form-floating">
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Confirm Password"
+              required
+              onChange={(e) => setconfirmPassword(e.target.value)}
+            />
+            <label htmlFor="floatingPassword">ConfirmPassword</label>
+          </div>
+
           <button className="w-100 btn btn-lg btn-primary" type="submit">
             Submit
           </button>
         </form>
-        <Link href="/forgetpassword">Forgot Password?</Link>
       </main>
     </div>
   );
 };
 
-export default Login;
+export default UpdatePassword;

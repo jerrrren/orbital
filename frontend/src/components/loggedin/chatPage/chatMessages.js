@@ -34,9 +34,8 @@ const ChatMessages = (props) => {
                 padding: "1vw",
               }}
             >
-              <Text style={{ whiteSpace: "break-spaces" }}>
+              <Text style={{ whiteSpace: "break-spaces" ,direction:"ltr"}}>
                 {message.message}
-                <br />
               </Text>
             </Box>
           </Flex>
@@ -80,19 +79,20 @@ const ChatMessages = (props) => {
       (a, b) =>
         new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime()
     )
-    .map(mapToChat);
+    .map(mapToChat)
+    .reverse();
 
   return (
     <Flex
-      direction="column"
+      direction="column-reverse"
       height="77.6vh"
       width="83vw"
       alignItems="center"
       gap="1vh"
       overflowY="scroll"
     >
-      {messageboxes}
       <div ref={bottomRef} />
+      {messageboxes}
     </Flex>
   );
 };

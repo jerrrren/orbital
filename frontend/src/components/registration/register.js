@@ -53,7 +53,7 @@ const Register = () => {
   }
 
   return (
-    <div className="register">
+    <div className="register" style={{ height: "100vh" }}>
       <Nav />
       {err ? (
         <div className="alert alert-danger" role="alert">

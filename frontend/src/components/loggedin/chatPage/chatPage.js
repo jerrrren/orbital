@@ -157,8 +157,11 @@ const ChatPage = () => {
           <Heading padding="3" style={{ fontWeight: "normal" }}>
             {receiver ? receiver.username : "Please select a user to chat with"}
           </Heading>
+
+
+          {webServer &&
           <Flex
-            padding="1"
+            padding="3"
             style={{
               flexDirection: "column",
               background: "#ffb44c",
@@ -171,39 +174,42 @@ const ChatPage = () => {
               marginRight: "0.5vw",
             }}
           >
-            {receiver && (
-              <ChatMessages
-                messages={messages}
-                receiver={receiver}
-              ></ChatMessages>
-            )}
-            <Box margin="1vw">
-              <Formik onSubmit={submitForm} initialValues={initialValues}>
-                <Form>
-                  <Field name="body">
-                    {({
-                      field, // { name, value, onChange, onBlur }
-                      form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                      meta,
-                    }) => (
-                      <Textarea
-                        width="75vw"
-                        requiredtype="text"
-                        id="body"
-                        name="body"
-                        marginRight="1vw"
-                        {...field}
-                      ></Textarea>
-                    )}
-                  </Field>
+              {receiver && (
+                <ChatMessages
+                  messages={messages}
+                  receiver={receiver}
+                ></ChatMessages>
+              )}
+              <Box margin="1vw">
+                <Formik onSubmit={submitForm} initialValues={initialValues}>
+                  <Form>
+                    <Field name="body">
+                      {({
+                        field, // { name, value, onChange, onBlur }
+                        form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                        meta,
+                      }) => (
+                        <Textarea
+                          width="75vw"
+                          requiredtype="text"
+                          id="body"
+                          name="body"
+                          marginRight="1vw"
+                          {...field}
+                        ></Textarea>
+                      )}
+                    </Field>
 
-                  <Button marginBottom="1vh" type="submit">
-                    Send
-                  </Button>
-                </Form>
-              </Formik>
-            </Box>
+                    <Button marginBottom="1vh" type="submit">
+                      Send
+                    </Button>
+                  </Form>
+                </Formik>
+              </Box>
+              
+            
           </Flex>
+           }
         </Box>
       </Flex>
     </Flex>

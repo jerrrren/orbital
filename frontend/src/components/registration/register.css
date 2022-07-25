@@ -21,8 +21,9 @@
 
 .register {
   background-image: url(https://www.teahub.io/photos/full/196-1963448_3840x2160-knstlerisch-minimalist-mountain-wallpaper-4k.jpg);
-  background-size: 1550px 750px;
-  height: 100vh;
-  font-size: 15px;
+  height: 100%;
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 15px;
 }
