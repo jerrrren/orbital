@@ -25,23 +25,24 @@ const FriendPage = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  if (paired) {
+    var temp = "/chat/" + sessionStorage.getItem("partnerID")
+    return <Navigate to={temp} replace={true} />;
+  }
+
   return (
     <div>
-      {paired ? (
-        <ChatPage />
-      ) : (
-        <div>
-          <LoggedinNavbar />
-          <div className="jumbotron p-3 p-md-5 text-white bg-dark">
-            <div className="col-md-6 px-0">
-              <h1 className="display-4 font-italic">
-                You have yet to be paired, please go to the pair tab on the
-                navigation bar
-              </h1>
-            </div>
+      <div>
+        <LoggedinNavbar />
+        <div className="jumbotron p-3 p-md-5 text-white bg-dark">
+          <div className="col-md-6 px-0">
+            <h1 className="display-4 font-italic">
+              You have yet to be paired, please go to the pair tab on the
+              navigation bar
+            </h1>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
