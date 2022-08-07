@@ -10,4 +10,4 @@ If there is any error during error registration/Login, follow the error message 
 
 Once logged in, we can add Post, view friends page, view chat page and get paried.
 
-Visit https://docs.google.com/document/d/1MRzT411ZlgwgPWsIyqeccw7lniKzqxqr/edit for more detailed instructions with photos
+Visit https://docs.google.com/document/d/1MRzT411ZlgwgPWsIyqeccw7lniKzqxqr/edit for documentation
