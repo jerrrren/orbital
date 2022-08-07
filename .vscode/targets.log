@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 22 11:24:05 2022
+# Make data base, printed on Sun Aug 07 14:03:01 2022
 
 # Variables
 
@@ -39,7 +39,7 @@ GOPATH = C:\Users\cheej\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_30928_EHQQTMFQSMPFOQCR
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_22356_UNLEFMYMIEVVAMOT
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -87,7 +87,7 @@ MAKEFILE_LIST :=
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 30928
+VSCODE_PID = 22356
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -211,9 +211,9 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/cheej/Desktop/Orbital/orbital, mtime 1658460101): 9 files, no impossibilities.
+# . (key c:/Users/cheej/Desktop/Orbital/orbital, mtime 1658719145): 7 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 7 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -245,7 +245,8 @@ all:
 makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has been updated.
+#  File has been updated 
+.
 #  Failed to be updated.
 
 # Not a target:
@@ -270,12 +271,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 16 / storage = 132 B / avg = 8 B
-# current buf: size = 8174 B / used = 132 B / count = 16 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 14 / storage = 111 B / avg = 7 B
+# current buf: size = 8174 B / used = 111 B / count = 14 / avg = 7 B
 
-# strcache performance: lookups = 19 / hit rate = 15%
+# strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
-# Load=16/8192=0%, Rehash=0, Collisions=0/19=0%
-# Finished Make data base on Fri Jul 22 11:24:05 2022
+# Load=14/8192=0%, Rehash=0, Collisions=0/17=0%
+# Finished Make data base on Sun Aug 07 14:03:01 2022
 
  
